@@ -1,4 +1,5 @@
 export default {
+    label: "recette",
     form: {
         create: {
             title : 'Ajouter une recette'

@@ -4,7 +4,7 @@ import type { APIResponse } from "@/services/types";
 import { API } from "@/services";
 import type {Ingredient} from "@/services/ingredients/types";
 
-export const useIngredientStore = defineStore("ingredientStore", () => {
+export const useIngredientsStore = defineStore("ingredientsStore", () => {
     const ingredients = ref<Ingredient[]>([]);
 
     function initIngredients(data: Ingredient[]) {

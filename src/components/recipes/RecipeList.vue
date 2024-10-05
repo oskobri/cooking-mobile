@@ -1,8 +1,17 @@
 <template>
   <div>
-    <SelectedRecipeList/>
-    <div class="flex flex-wrap gap-2">
-      <div v-for="(recipe, key) in recipeStore.recipes">
+    <div class="min-h-14">
+      <RouterLink to="grocery-list" v-show="selected">
+        <button
+            class="flex justify-between btn-block items-center bg-accent rounded text-white p-2 shadow-2xl duration-300 ease-in-out">
+          <span class="text-lg">Afficher la liste de course</span>
+          <div class="badge badge-lg badge-outline">{{ selected }}</div>
+        </button>
+      </RouterLink>
+    </div>
+
+    <div class="flex flex-wrap gap-4">
+      <div v-for="(recipe, key) in recipesStore.recipes">
           <RecipeCard :id="key" :recipe="recipe" :key="recipe.id"/>
       </div>
     </div>
@@ -10,22 +19,23 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted} from "vue";
-import {useRecipeStore} from "@/stores/recipes";
+import {computed, onMounted} from "vue";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
-import SelectedRecipeList from "@/components/recipes/SelectedRecipeList.vue";
+import {useGroceryListsStore} from "@/stores/grocery-lists";
+import {useRecipesStore} from "@/stores/recipes";
 
-const recipeStore = useRecipeStore();
+const groceryListsStore = useGroceryListsStore();
+const recipesStore = useRecipesStore();
+
+const selected = computed(() => groceryListsStore.recipes.length);
 
 onMounted(async () => {
-  const {success, status} = await recipeStore.getRecipes();
+  const {success, status} = await recipesStore.getRecipes();
 
   if (!success) {
-    alert("Ups, something happened 🙂");
     console.log("Api status ->", status);
   }
 });
-
 
 </script>
 

@@ -4,7 +4,7 @@ const instance = axios.create({
 });
 
 instance.interceptors.response.use(
-    (response) => {
+    (response): { success: boolean; status: number; content: any; } => {
         // En cas de succès, renvoyer un objet formaté
         return {
             success: true,

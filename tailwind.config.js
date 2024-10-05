@@ -11,7 +11,13 @@ export default {
         require('daisyui'),
     ],
     daisyui: {
-        themes: ["winter"],
+        themes: [
+            {
+                garden: {
+                    ...require("daisyui/src/theming/themes")["garden"],
+                    "base-100": "#fff",
+                }
+            }],
     }
 }
 

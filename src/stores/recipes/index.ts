@@ -9,9 +9,8 @@ import type {APIResponse} from "@/services/types";
 import {API} from "@/services";
 import type {Ingredient} from "@/services/ingredients/types";
 
-export const useRecipeStore = defineStore("recipeStore", () => {
+export const useRecipesStore = defineStore("recipesStore", () => {
     const recipes = ref<Recipe[]>([]);
-    const selectedRecipes = ref<Recipe[]>([]);
     const recipe = ref<Recipe>();
 
     function initRecipes(data: Recipe[]) {
@@ -28,14 +27,6 @@ export const useRecipeStore = defineStore("recipeStore", () => {
 
     function addNewIngredient(data: Ingredient) {
         recipe.value?.ingredients.push(data);
-    }
-
-    function selectRecipe(recipe: Recipe) {
-        selectedRecipes.value.push(recipe);
-    }
-
-    function unselectRecipe(recipeId: number) {
-        selectedRecipes.value = selectedRecipes.value.filter(recipe => recipe.id !== recipeId);
     }
 
     function removeRecipe(id: number) {
@@ -112,9 +103,6 @@ export const useRecipeStore = defineStore("recipeStore", () => {
     return {
         recipe,
         recipes,
-        selectedRecipes,
-        selectRecipe,
-        unselectRecipe,
         getRecipes,
         getRecipe,
         createRecipe,

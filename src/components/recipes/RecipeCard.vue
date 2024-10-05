@@ -21,23 +21,23 @@
 <script lang="ts" setup>
 
 import Recipe from "@/components/recipes/Recipe.vue";
-import { useRecipeStore } from "@/stores/recipes";
 import {computed} from "vue";
+import {useGroceryListsStore} from "@/stores/grocery-lists";
 
-const recipeStore = useRecipeStore();
+const groceryListsStore = useGroceryListsStore();
 
 const props = defineProps({
   recipe: Recipe
 })
 
-const selected = computed(() => recipeStore.selectedRecipes.some(recipe => recipe.id === props.recipe.id));
+const selected = computed(() => groceryListsStore.recipes.some(recipe => recipe.id === props.recipe.id));
 
 function selectRecipe() {
-  recipeStore.selectRecipe(props.recipe)
+  groceryListsStore.selectRecipe(props.recipe)
 }
 
 function unselectRecipe() {
-  recipeStore.unselectRecipe(props.recipe.id)
+  groceryListsStore.unselectRecipe(props.recipe.id)
 }
 
 </script>

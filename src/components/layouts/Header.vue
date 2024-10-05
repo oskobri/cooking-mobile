@@ -1,14 +1,16 @@
 <template>
   <header>
-    <div class="navbar bg-base-100">
+    <div class="navbar">
       <div class="navbar-start">
-
+        <RouterLink to="/"><a class="btn btn-ghost text-xl">Cooking</a></RouterLink>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">
-          <li><RouterLink to="/">Home</RouterLink></li>
-          <li><RouterLink to="/recipes/create">Ajout de recette</RouterLink></li>
+
         </ul>
+      </div>
+      <div class="navbar-end">
+        <RouterLink to="/recipes/create"><a class="btn btn-sm btn-outline btn-secondary">Nouvelle recette</a></RouterLink>
       </div>
     </div>
   </header>

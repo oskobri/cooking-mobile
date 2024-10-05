@@ -1,22 +1,22 @@
+<template>
+  <main>
+    <Recipe v-if="recipesStore.recipe"/>
+  </main>
+</template>
+
 <script setup lang="ts">
 import Recipe from "@/components/recipes/Recipe.vue";
-import {useRecipeStore} from "@/stores/recipes";
+import {useRecipesStore} from "@/stores/recipes";
 import {onBeforeMount} from "vue";
 
 const props = defineProps({
   id: String
 })
 
-const recipeStore = useRecipeStore();
+const recipesStore = useRecipesStore();
 
 onBeforeMount(async () => {
-  await recipeStore.getRecipe(parseInt(props.id));
+  await recipesStore.getRecipe(parseInt(props.id));
 })
 
 </script>
-
-<template>
-  <main>
-    <Recipe v-if="recipeStore.recipe"/>
-  </main>
-</template>
