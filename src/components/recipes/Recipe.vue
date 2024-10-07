@@ -1,9 +1,12 @@
 <template>
-  <h1 class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
+  <a v-if="recipesStore.recipe.url" :href="recipesStore.recipe.url" target="_blank" rel="noopener noreferrer">
+    <h1 class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
+  </a>
+  <h1 v-else class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
 
   <div>Ingrédients</div>
   <div v-for="ingredient in recipesStore.recipe.ingredients">
-    {{ ingredient.quantity }} {{ ingredient.unit || ingredient.default_unit }} {{ ingredient.name }}
+    {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
   </div>
 
   <div class="flex flex-row gap-2 mt-4">

@@ -1,12 +1,16 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import type {Ingredient} from "@/services/ingredients/types";
-import {useRecipesStore} from "@/stores/recipes";
 import type {Recipe} from "@/services/recipes/types";
 
 export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     const recipes = ref<Recipe[]>([]);
     const ingredients = ref([]);
+    const servingCount = ref(1);
+
+    function setServingCount(count: number) {
+        servingCount.value = count;
+        initIngredients();
+    }
 
     function selectRecipe(recipe: Recipe) {
         recipes.value.push(recipe);
@@ -21,17 +25,21 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     function initIngredients() {
         const mergedIngredients = {};
 
-        useRecipesStore().recipes.forEach((recipe) => {
+        recipes.value.forEach((recipe) => {
             recipe.ingredients.forEach((ingredient) => {
                 const key = `${ingredient.name}-${ingredient.unit}`;
+                const quantity = ingredient.quantity * servingCount.value;
 
-                mergedIngredients[key]
-                    ? mergedIngredients[key].quantity += ingredient.quantity
-                    : mergedIngredients[key] = {...ingredient};
+                if(mergedIngredients[key]) {
+                    mergedIngredients[key].quantity += quantity
+                }
+                else {
+                    mergedIngredients[key] = {...ingredient}
+                    mergedIngredients[key].quantity = quantity
+                }
 
                 mergedIngredients[key].isChecked = false;
             });
-
 
             ingredients.value = Object
                 .values(mergedIngredients)
@@ -47,6 +55,8 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     return {
         recipes,
         ingredients,
+        servingCount,
+        setServingCount,
         selectRecipe,
         unselectRecipe,
         initIngredients,

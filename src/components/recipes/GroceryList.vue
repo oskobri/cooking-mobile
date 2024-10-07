@@ -1,10 +1,14 @@
 <template>
+  <div>
+    <div class="flex justify-end mb-2">
+      <QuantitySelector :initial-quantity="groceryListsStore.servingCount" @update="groceryListsStore.setServingCount"></QuantitySelector>
+    </div>
   <div class="flex flex-col gap-2">
     <div v-for="(ingredient, index) in groceryListsStore.ingredients" :key="index">
       <div class="flex justify-between items-center" :class="{ 'opacity-20 line-through': ingredient.checked }">
         <div>
           <span class="inline-flex min-w-24" :class="{ 'line-through': ingredient.checked }">
-            {{ ingredient.quantity }} {{ ingredient.unit }}
+            <template v-if="ingredient.quantity != 0">{{ ingredient.quantity }}</template> {{ ingredient.unit }}
           </span>
           <span>{{ ingredient.name }}</span>
         </div>
@@ -17,10 +21,12 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import {useGroceryListsStore} from "@/stores/grocery-lists";
+import QuantitySelector from "@/components/input/QuantitySelector.vue";
 
 const groceryListsStore = useGroceryListsStore();
 
