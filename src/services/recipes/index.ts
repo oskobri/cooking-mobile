@@ -2,8 +2,9 @@ import http from "../api";
 import type { APIResponse } from "../types";
 import type { Recipe, InputCreateRecipe, InputUpdateRecipe } from "./types";
 
-async function getRecipes() {
-    return await http.get<APIResponse<Recipe[]>>("recipes");
+async function getRecipes(page: number) {
+    const query = `?page=${page}`;
+    return await http.get<APIResponse<Recipe[]>>("recipes" + query);
 }
 
 async function getRecipe(id: number) {

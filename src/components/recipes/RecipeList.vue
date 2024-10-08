@@ -2,7 +2,8 @@
   <div>
     <div>
       <div class="flex justify-end mb-2">
-        <QuantitySelector :initial-quantity="groceryListsStore.servingCount" @update="groceryListsStore.setServingCount"></QuantitySelector>
+        <QuantitySelector :initial-quantity="groceryListsStore.servingCount"
+                          @update="groceryListsStore.setServingCount"></QuantitySelector>
       </div>
       <RouterLink to="grocery-list" v-show="selected">
         <button
@@ -13,7 +14,7 @@
       </RouterLink>
     </div>
 
-    <div class="flex flex-wrap gap-4">
+    <div class="flex flex-wrap gap-4" ref="scrollComponent">
       <div v-for="(recipe, key) in recipesStore.recipes">
         <RecipeCard :id="key" :recipe="recipe" :key="recipe.id"/>
       </div>
@@ -22,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted} from "vue";
+import {computed, onMounted, onUnmounted, ref} from "vue";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
 import QuantitySelector from "@/components/input/QuantitySelector.vue";
 import {useGroceryListsStore} from "@/stores/grocery-lists";
@@ -32,14 +33,27 @@ const groceryListsStore = useGroceryListsStore();
 const recipesStore = useRecipesStore();
 
 const selected = computed(() => groceryListsStore.recipes.length);
+const scrollComponent = ref(null);
+const waitForRecipes = ref(false);
 
 onMounted(async () => {
-  const {success, status} = await recipesStore.getRecipes();
+  window.addEventListener("scroll", handleScroll);
 
-  if (!success) {
-    console.log("Api status ->", status);
-  }
+  await recipesStore.getRecipes();
 });
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", handleScroll);
+})
+
+async function handleScroll() {
+  let element = scrollComponent.value;
+  if (!waitForRecipes.value && element.getBoundingClientRect().bottom < (window.innerHeight + 50)) {
+    waitForRecipes.value = true;
+    await recipesStore.getRecipes(recipesStore.currentPage + 1);
+    waitForRecipes.value = false;
+  }
+}
 
 </script>
 

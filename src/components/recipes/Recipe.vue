@@ -91,7 +91,7 @@ async function searchIngredient() {
 function selectIngredient(key: number) {
   ingredientId.value = ingredientsStore.ingredients[key].id;
   name.value = ingredientsStore.ingredients[key].name;
-  unit.value = ingredientsStore.ingredients[key].default_unit;
+  unit.value = ingredientsStore.ingredients[key].defaultUnit;
   showIngredientList.value = false;
 }
 

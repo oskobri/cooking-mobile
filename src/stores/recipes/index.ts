@@ -12,9 +12,17 @@ import type {Ingredient} from "@/services/ingredients/types";
 export const useRecipesStore = defineStore("recipesStore", () => {
     const recipes = ref<Recipe[]>([]);
     const recipe = ref<Recipe>();
+    const currentPage = ref(1);
+    const lastPage = ref();
 
     function initRecipes(data: Recipe[]) {
         recipes.value = data;
+    }
+
+    function pushRecipes(data: Recipe[]) {
+        const ids = recipes.value.map(recipe => recipe.id);
+        const dataFiltered = data.filter(recipe => !ids.includes(recipe.id));
+        recipes.value = recipes.value.concat(dataFiltered);
     }
 
     function initRecipe(data: Recipe) {
@@ -35,14 +43,20 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         recipes.value.splice(idx, 1);
     }
 
-    async function getRecipes(): Promise<APIResponse<null>> {
-        const response = await API.recipe.getRecipes();
-
-        if (response.success && response.status === 200) {
-            initRecipes(response.content.data);
+    async function getRecipes(page?: number) {
+        if (page && page > lastPage.value || !page && currentPage.value > lastPage.value) {
+            return;
         }
 
-        return response;
+        if (page) {
+            currentPage.value = page;
+        }
+
+        const response = await API.recipe.getRecipes(currentPage.value);
+        if (response.success && response.status === 200) {
+            pushRecipes(response.content.data);
+            lastPage.value = response.content.meta.last_page;
+        }
     }
 
     async function getRecipe(id: number): Promise<APIResponse<null>> {
@@ -88,7 +102,7 @@ export const useRecipesStore = defineStore("recipesStore", () => {
     ): Promise<APIResponse<null>> {
         const response = await API.recipe.addIngredient(recipe_id, ingredient, quantity, unit);
 
-        if (response.success && (response.status === 200 || response.status ===201)) {
+        if (response.success && (response.status === 200 || response.status === 201)) {
             addNewIngredient({
                 id: response.content.data.id,
                 name: response.content.data.name,
@@ -103,6 +117,7 @@ export const useRecipesStore = defineStore("recipesStore", () => {
     return {
         recipe,
         recipes,
+        currentPage,
         getRecipes,
         getRecipe,
         createRecipe,

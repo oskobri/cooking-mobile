@@ -9,6 +9,7 @@
     </router-link>
     <div class="card-body flex justify-between">
       <h2 class="card-title">{{ recipe.name }}</h2>
+      <div>{{ recipe.totalTime }}</div>
       <div class="card-actions">
         <button v-if="!selected" class="btn btn-block btn-outline btn-secondary" @click="selectRecipe">{{ $t('common.select') }}</button>
         <button v-else class="btn btn-block btn-secondary" @click="unselectRecipe">{{ $t('common.selected') }}</button>
