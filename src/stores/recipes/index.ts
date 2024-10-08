@@ -15,10 +15,6 @@ export const useRecipesStore = defineStore("recipesStore", () => {
     const currentPage = ref(1);
     const lastPage = ref();
 
-    function initRecipes(data: Recipe[]) {
-        recipes.value = data;
-    }
-
     function pushRecipes(data: Recipe[]) {
         const ids = recipes.value.map(recipe => recipe.id);
         const dataFiltered = data.filter(recipe => !ids.includes(recipe.id));
@@ -27,6 +23,10 @@ export const useRecipesStore = defineStore("recipesStore", () => {
 
     function initRecipe(data: Recipe) {
         recipe.value = data;
+    }
+
+    function clearRecipe() {
+        recipe.value = null;
     }
 
     function addNewRecipe(recipe: Recipe) {
@@ -118,6 +118,7 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         recipe,
         recipes,
         currentPage,
+        clearRecipe,
         getRecipes,
         getRecipe,
         createRecipe,

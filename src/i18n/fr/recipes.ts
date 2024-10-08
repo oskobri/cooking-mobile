@@ -10,5 +10,9 @@ export default {
         name: "Nom de l'ingrédient",
         quantity: "Quantité",
         unit: "Mesure"
-    }
+    },
+    preparation_time: "Temps de préparation",
+    total_time: "Temps total",
+    kcal: "kcal",
+    per_serving: "Par portion"
 }

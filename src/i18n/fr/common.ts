@@ -2,5 +2,6 @@ export default {
     name: "Nom",
     add: "Ajouter",
     selected: "Sélectionné",
-    select: "Sélectionner"
+    select: "Sélectionner",
+    minute: "minute | 1 minute | {count} minutes",
 }

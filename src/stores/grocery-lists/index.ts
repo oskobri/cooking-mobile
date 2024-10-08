@@ -5,7 +5,7 @@ import type {Recipe} from "@/services/recipes/types";
 export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     const recipes = ref<Recipe[]>([]);
     const ingredients = ref([]);
-    const servingCount = ref(1);
+    const servingCount = ref(2);
 
     function setServingCount(count: number) {
         servingCount.value = count;

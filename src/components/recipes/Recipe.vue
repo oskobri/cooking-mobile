@@ -1,50 +1,64 @@
 <template>
-  <a v-if="recipesStore.recipe.url" :href="recipesStore.recipe.url" target="_blank" rel="noopener noreferrer">
-    <h1 class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
-  </a>
-  <h1 v-else class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
+  <div v-if="recipesStore.recipe">
+    <figure>
+      <img
+          :src="recipesStore.recipe.picture"
+          :alt="recipesStore.recipe.name"/>
+    </figure>
+    <a v-if="recipesStore.recipe.url" :href="recipesStore.recipe.url" target="_blank" rel="noopener noreferrer">
+      <h1 class="text-2xl mb-4">{{ recipesStore.recipe.name }}</h1>
+    </a>
+    <h1 v-else class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
 
-  <div>Ingrédients</div>
-  <div v-for="ingredient in recipesStore.recipe.ingredients">
-    {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
-  </div>
-
-  <div class="flex flex-row gap-2 mt-4">
-    <div>
-      <input v-model="name" ref="ingredient-name" @input="searchIngredient" type="text"
-             :placeholder="$t('recipes.ingredient.name')"
-             class="input  max-w-xs mr-2"/>
-
-      <ul
-          v-if="ingredientsStore.ingredients.length && showIngredientList"
-          class="w-full rounded border border-base-300 px-4 py-2 space-y-1 absolute z-10"
-      >
-        <li
-            v-for="(ingredient, key) in ingredientsStore.ingredients"
-            :key="ingredient.name"
-            @click="selectIngredient(key)"
-            class="cursor-pointer rounded hover:bg-base-300 p-1"
-        >
-          {{ ingredient.name }}
-        </li>
-      </ul>
+    <div class="flex justify-end mb-2">
+      <QuantitySelector :initial-quantity="groceryListsStore.servingCount"
+                        @update="groceryListsStore.setServingCount"></QuantitySelector>
     </div>
 
-    <input v-model="quantity" @keyup.enter="addIngredient" type="text" :placeholder="$t('recipes.ingredient.quantity')"
-           class="input max-w-xs mr-2"/>
+    <div>Ingrédients</div>
+    <div v-for="ingredient in recipesStore.recipe.ingredients">
+      {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
+    </div>
 
-    <select v-model="unit" @keyup.enter="addIngredient" class="select  max-w-xs">
-      <option disabled selected>{{ $t('recipes.ingredient.unit') }}</option>
-      <option v-for="unit_option in units" :value="unit_option.value">{{
-          $t('enums.units.' + unit_option.name)
-        }}
-      </option>
-    </select>
 
-    <button @click="addIngredient" class="btn btn-success">{{ $t('common.add') }}</button>
+  <div class="flex flex-col gap-2 mt-4">
+      <div>
+        <input v-model="name" ref="ingredient-name" @input="searchIngredient" type="text"
+               :placeholder="$t('recipes.ingredient.name')"
+               class="input input-bordered w-full"/>
+        <ul
+            v-if="ingredientsStore.ingredients.length && showIngredientList"
+            class="w-full rounded border border-base-300 bg-base-100 px-4 space-y-1 absolute z-10"
+        >
+          <li
+              v-for="(ingredient, key) in ingredientsStore.ingredients"
+              :key="ingredient.name"
+              @click="selectIngredient(key)"
+              class="cursor-pointer rounded w-full hover:bg-base-300 p-1"
+          >
+            {{ ingredient.name }}
+          </li>
+        </ul>
+      </div>
+      <input v-model="quantity" @keyup.enter="addIngredient" type="text"
+             :placeholder="$t('recipes.ingredient.quantity')"
+             class="input input-bordered w-full"/>
 
+      <select v-model="unit" @keyup.enter="addIngredient" class="select select-bordered w-full">
+        <option disabled selected>{{ $t('recipes.ingredient.unit') }}</option>
+        <option v-for="unit_option in units" :value="unit_option.value">{{
+            $t('enums.units.' + unit_option.name)
+          }}
+        </option>
+      </select>
+      <button @click="addIngredient" class="btn btn-success">{{ $t('common.add') }}</button>
+    </div>
+
+
+    <div v-if="recipesStore.recipe.instructions"
+         class="text-justify mt-8"
+         v-html="recipesStore.recipe.instructions"></div>
   </div>
-
 </template>
 
 <script lang="ts" setup>
@@ -52,10 +66,13 @@ import {useRecipesStore} from "@/stores/recipes";
 import {ref, useTemplateRef} from "vue";
 import units from "@/enums/units";
 import {useIngredientsStore} from "@/stores/ingredients";
+import QuantitySelector from "@/components/input/QuantitySelector.vue";
+import {useGroceryListsStore} from "@/stores/grocery-lists";
 
-// TODO useIngredientsStore
+
 const recipesStore = useRecipesStore();
 const ingredientsStore = useIngredientsStore();
+const groceryListsStore = useGroceryListsStore();
 
 
 const name = ref();

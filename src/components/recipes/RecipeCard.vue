@@ -7,11 +7,24 @@
             :alt="recipe.name"/>
       </figure>
     </router-link>
-    <div class="card-body flex justify-between">
+    <div class="card-body">
       <h2 class="card-title">{{ recipe.name }}</h2>
-      <div>{{ recipe.totalTime }}</div>
+      <div class="flex justify-between">
+        {{ $t('recipes.preparation_time') }}
+        <span class="font-bold">{{ $tc('common.minute', recipe.preparationTime, {count: recipe.preparationTime}) }}</span>
+      </div>
+      <div class="flex justify-between">
+        {{ $t('recipes.total_time') }}
+        <span class="font-bold">{{ $tc('common.minute', recipe.totalTime, {count: recipe.totalTime}) }}</span>
+      </div>
+      <div class="flex justify-between">
+        {{ $t('recipes.per_serving') }}
+        <span class="font-bold">{{ recipe.kcal }} {{ $t('recipes.kcal') }}</span>
+      </div>
       <div class="card-actions">
-        <button v-if="!selected" class="btn btn-block btn-outline btn-secondary" @click="selectRecipe">{{ $t('common.select') }}</button>
+        <button v-if="!selected" class="btn btn-block btn-outline btn-secondary" @click="selectRecipe">
+          {{ $t('common.select') }}
+        </button>
         <button v-else class="btn btn-block btn-secondary" @click="unselectRecipe">{{ $t('common.selected') }}</button>
       </div>
     </div>
