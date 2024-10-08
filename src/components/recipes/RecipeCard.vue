@@ -9,18 +9,7 @@
     </router-link>
     <div class="card-body">
       <h2 class="card-title">{{ recipe.name }}</h2>
-      <div class="flex justify-between">
-        {{ $t('recipes.preparation_time') }}
-        <span class="font-bold">{{ $tc('common.minute', recipe.preparationTime, {count: recipe.preparationTime}) }}</span>
-      </div>
-      <div class="flex justify-between">
-        {{ $t('recipes.total_time') }}
-        <span class="font-bold">{{ $tc('common.minute', recipe.totalTime, {count: recipe.totalTime}) }}</span>
-      </div>
-      <div class="flex justify-between">
-        {{ $t('recipes.per_serving') }}
-        <span class="font-bold">{{ recipe.kcal }} {{ $t('recipes.kcal') }}</span>
-      </div>
+      <RecipeInformation :recipe="recipe" />
       <div class="card-actions">
         <button v-if="!selected" class="btn btn-block btn-outline btn-secondary" @click="selectRecipe">
           {{ $t('common.select') }}
@@ -37,12 +26,11 @@
 import Recipe from "@/components/recipes/Recipe.vue";
 import {computed} from "vue";
 import {useGroceryListsStore} from "@/stores/grocery-lists";
+import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 
 const groceryListsStore = useGroceryListsStore();
 
-const props = defineProps({
-  recipe: Recipe
-})
+const props = defineProps(['recipe'])
 
 const selected = computed(() => groceryListsStore.recipes.some(recipe => recipe.id === props.recipe.id));
 

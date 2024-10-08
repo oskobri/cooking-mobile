@@ -10,7 +10,10 @@
     </a>
     <h1 v-else class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
 
-    <div class="flex justify-end mb-2">
+    <RecipeInformation :recipe="recipesStore.recipe"/>
+
+
+    <div class="flex justify-end my-2">
       <QuantitySelector :initial-quantity="groceryListsStore.servingCount"
                         @update="groceryListsStore.setServingCount"></QuantitySelector>
     </div>
@@ -68,6 +71,7 @@ import units from "@/enums/units";
 import {useIngredientsStore} from "@/stores/ingredients";
 import QuantitySelector from "@/components/input/QuantitySelector.vue";
 import {useGroceryListsStore} from "@/stores/grocery-lists";
+import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 
 
 const recipesStore = useRecipesStore();
