@@ -7,6 +7,7 @@ import {createI18n} from "vue-i18n";
 import recipes_fr from "@/i18n/fr/recipes";
 import common_fr from "@/i18n/fr/common";
 import enums_fr from "@/i18n/fr/enums";
+import groceryLists_fr from "@/i18n/fr/grocery-lists";
 
 import App from './App.vue'
 import router from './router'
@@ -16,9 +17,10 @@ const i18n = createI18n({
     fallbackLocale: 'fr',
     messages : {
         fr: {
-            recipes: recipes_fr,
             common: common_fr,
             enums: enums_fr,
+            groceryLists: groceryLists_fr,
+            recipes: recipes_fr,
         }
     }
 })

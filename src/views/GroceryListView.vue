@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import GroceryList from '@/components/recipes/GroceryList.vue';
+import GroceryList from '@/components/grocery-lists/GroceryList.vue';
 </script>

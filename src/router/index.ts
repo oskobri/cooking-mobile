@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ShowRecipeView from "@/views/ShowRecipeView.vue";
 import CreateRecipeView from "@/views/CreateRecipeView.vue";
 import GroceryListView from "@/views/GroceryListView.vue";
+import GroceryListHistoryView from "@/views/GroceryListHistoryView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,8 +25,13 @@ const router = createRouter({
       component: ShowRecipeView
     },
     {
+      path: '/grocery-lists',
+      name: 'grocery-lists',
+      component: GroceryListHistoryView
+    },
+    {
       path: '/grocery-list',
-      name: 'grocery-list',
+      name: 'show-grocery-list',
       component: GroceryListView,
       meta: { transition: 'slide-left' },
     }

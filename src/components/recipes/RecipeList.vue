@@ -1,9 +1,10 @@
 <template>
   <div>
     <div class="flex flex-wrap gap-4" ref="scrollComponent">
-      <div v-for="(recipe, key) in recipesStore.recipes">
-        <RecipeCard :id="key" :recipe="recipe" :key="recipe.id"/>
-      </div>
+      <RecipeCard v-for="(recipe, key) in recipesStore.recipes"
+                  :key="recipe.id"
+                  :recipe="recipe"
+                  :show-actions="true"/>
     </div>
   </div>
 </template>

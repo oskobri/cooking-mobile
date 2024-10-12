@@ -14,6 +14,5 @@ export default {
     preparation_time: "Temps de préparation",
     total_time: "Temps total",
     kcal: "kcal",
-    per_serving: "Par portion",
-    link_button: "Afficher la liste de course"
+    per_serving: "Par portion"
 }

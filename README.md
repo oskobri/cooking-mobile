@@ -1,11 +1,11 @@
 # cooking-website
 
 ## TODO
-- Réfléchir à comment gérer le select serving count sur la page d'une recette. Lié à la liste de courses ou non
-- Au changement de servingcount vérifier si on a des ingrédients cochés et si oui, alert attention cela va réinitialiser la liste de courses (Oui/Non)"
-- Déplacer servingCount dans un store pour lui et utiliser le store dans groceryStore et recipeStore
-- Ajout tags
+- Gestion de groceryList en back avec middleware pour la création avant d'aller sur la page
+- Gestion du bouton dans lien dans la page GroceryListHistoryView 
+- Revoir le visuel de la page recette 
 - Tri (nom, kcal, temps)
+- Ajout tags
 - Filtre sur tag
 - Recherche
 

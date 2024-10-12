@@ -24,18 +24,18 @@ async function deleteRecipe(id: number) {
 }
 
 async function addIngredient(recipe_id: number, ingredient: number|string, quantity: number, unit: string) {
-    const ingredient_id: number|string = typeof ingredient === 'number' ? ingredient : '';
+    const ingredientId: number|string = typeof ingredient === 'number' ? ingredient : '';
 
     const data = {
         quantity,
         unit,
     };
 
-    if(ingredient_id === '') {
+    if(ingredientId === '') {
         data.name = ingredient;
     }
 
-    return await http.post<APIResponse<boolean>>(`recipes/${recipe_id}/ingredients/${ingredient_id}`, data);
+    return await http.post<APIResponse<boolean>>(`recipes/${recipe_id}/ingredients/${ingredientId}`, data);
 }
 
 export default {

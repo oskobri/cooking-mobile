@@ -1,11 +1,18 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import type {Recipe} from "@/services/recipes/types";
+import type {GroceryList} from "@/services/grocery-lists/types";
+import {API} from "@/services";
 
 export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     const recipes = ref<Recipe[]>([]);
+    const groceryLists = ref<GroceryList[]>([]);
+
     const ingredients = ref([]);
     const servingCount = ref(2);
+
+    const currentPage = ref(1);
+    const lastPage = ref();
 
     function setServingCount(count: number) {
         servingCount.value = count;
@@ -52,14 +59,39 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
         ingredients.value[index].checked = !ingredients.value[index].checked;
     }
 
+    function pushGroceryLists(data: GroceryList[]) {
+        const ids = groceryLists.value.map(groceryList => groceryList.id);
+        const dataFiltered = data.filter(groceryList => !ids.includes(groceryList.id));
+        groceryLists.value = groceryLists.value.concat(dataFiltered);
+    }
+
+    async function getGroceryLists(page?: number) {
+        if (page && page > lastPage.value || !page && currentPage.value > lastPage.value) {
+            return;
+        }
+
+        if (page) {
+            currentPage.value = page;
+        }
+
+        const response = await API.groceryList.getGroceryLists(currentPage.value);
+        if (response.success && response.status === 200) {
+            pushGroceryLists(response.content.data);
+            lastPage.value = response.content.meta.last_page;
+        }
+    }
+
+
     return {
         recipes,
+        groceryLists,
         ingredients,
         servingCount,
         setServingCount,
         selectRecipe,
         unselectRecipe,
         initIngredients,
-        checkIngredient
+        checkIngredient,
+        getGroceryLists
     };
 });

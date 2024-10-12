@@ -1,5 +1,5 @@
 <template>
-  <div class="card card-compact flex flex-col h-full bg-base-100 w-96 shadow-xl">
+  <div class="card card-compact flex flex-col bg-base-100 shadow-xl">
     <router-link v-if="recipe" :to="{ name: 'show-recipe', params: { id: recipe.id } }">
       <figure>
         <img
@@ -10,7 +10,7 @@
     <div class="card-body">
       <h2 class="card-title">{{ recipe.name }}</h2>
       <RecipeInformation :recipe="recipe" />
-      <div class="card-actions">
+      <div v-if="showActions" class="card-actions">
         <button v-if="!selected" class="btn btn-block btn-outline btn-secondary" @click="selectRecipe">
           {{ $t('common.select') }}
         </button>
@@ -18,19 +18,22 @@
       </div>
     </div>
   </div>
-
 </template>
 
 <script lang="ts" setup>
 
-import Recipe from "@/components/recipes/Recipe.vue";
 import {computed} from "vue";
 import {useGroceryListsStore} from "@/stores/grocery-lists";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
+import type {Recipe} from "@/services/recipes/types";
 
 const groceryListsStore = useGroceryListsStore();
 
-const props = defineProps(['recipe'])
+
+const props = defineProps<{
+  recipe: Recipe,
+  showActions?: Boolean
+}>();
 
 const selected = computed(() => groceryListsStore.recipes.some(recipe => recipe.id === props.recipe.id));
 
