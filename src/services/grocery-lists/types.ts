@@ -9,11 +9,13 @@ export type GroceryList = {
 };
 
 export type InputCreateGroceryList = {
-    name: string;
-    servingCount: Number;
+    name?: string;
+    serving_count: Number;
+    recipes: Number[];
 };
 
 export type InputUpdateGroceryList = {
-    name: string;
-    servingCount: Number;
+    name?: string;
+    serving_count?: Number;
+    recipes?: Number[];
 };

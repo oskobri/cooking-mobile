@@ -2,7 +2,7 @@
   <div class="collapse collapse-arrow bg-base-200">
     <input type="checkbox"/>
       <div class="collapse-title text-xl font-medium">{{ groceryList.name }}</div>
-    <RouterLink to="/grocery-lists">
+    <RouterLink :to="{name: 'show-grocery-list', params:{ id: groceryList.id }}">
       <button class="w-full bg-accent text-xl text-white p-2">Aller voir la liste</button>
     </RouterLink>
     <div class="collapse-content flex flex-wrap gap-4">

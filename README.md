@@ -1,13 +1,12 @@
 # cooking-website
 
 ## TODO
-- Gestion de groceryList en back avec middleware pour la création avant d'aller sur la page
-- Gestion du bouton dans lien dans la page GroceryListHistoryView 
 - Revoir le visuel de la page recette 
 - Tri (nom, kcal, temps)
 - Ajout tags
 - Filtre sur tag
 - Recherche
+- Catégoriser les ingrédients pour les trier
 
 ## Recommended IDE Setup
 

@@ -3,12 +3,15 @@ import type { APIResponse } from "../types";
 import type { GroceryList, InputCreateGroceryList, InputUpdateGroceryList } from "./types";
 
 async function getGroceryLists(page: number) {
-    const query = `?page=${page}`;
-    return await http.get<APIResponse<GroceryList[]>>("grocery-lists" + query);
+    return await http.get<APIResponse<GroceryList[]>>(`grocery-lists?page=${page}`);
 }
 
 async function getGroceryList(id: number) {
     return await http.get<APIResponse<GroceryList>>(`grocery-lists/${id}`);
+}
+
+async function getLastGroceryList() {
+    return await http.get<APIResponse<GroceryList>>(`grocery-lists/last`);
 }
 
 async function createGroceryList(input: InputCreateGroceryList) {
@@ -30,6 +33,7 @@ async function addRecipe(groceryListId: number, recipeId: number) {
 export default {
     getGroceryLists,
     getGroceryList,
+    getLastGroceryList,
     createGroceryList,
     updateGroceryList,
     deleteGroceryList,

@@ -14,8 +14,8 @@
 
 
     <div class="flex justify-end my-2">
-      <QuantitySelector :initial-quantity="groceryListsStore.servingCount"
-                        @update="groceryListsStore.setServingCount"></QuantitySelector>
+      <QuantitySelector :initial-quantity="groceryListStore.servingCount"
+                        @update="groceryListStore.setServingCount"></QuantitySelector>
     </div>
 
     <div>Ingrédients</div>
@@ -70,13 +70,13 @@ import {ref, useTemplateRef} from "vue";
 import units from "@/enums/units";
 import {useIngredientsStore} from "@/stores/ingredients";
 import QuantitySelector from "@/components/input/QuantitySelector.vue";
-import {useGroceryListsStore} from "@/stores/grocery-lists";
+import {useGroceryListStore} from "@/stores/grocery-list";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 
 
 const recipesStore = useRecipesStore();
 const ingredientsStore = useIngredientsStore();
-const groceryListsStore = useGroceryListsStore();
+const groceryListStore = useGroceryListStore();
 
 
 const name = ref();
