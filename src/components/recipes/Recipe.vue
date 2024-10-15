@@ -23,7 +23,6 @@
       {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
     </div>
 
-
   <div class="flex flex-col gap-2 mt-4">
       <div>
         <input v-model="name" ref="ingredient-name" @input="searchIngredient" type="text"
@@ -57,7 +56,6 @@
       <button @click="addIngredient" class="btn btn-success">{{ $t('common.add') }}</button>
     </div>
 
-
     <div v-if="recipesStore.recipe.instructions"
          class="text-justify mt-8"
          v-html="recipesStore.recipe.instructions"></div>
@@ -73,24 +71,26 @@ import QuantitySelector from "@/components/input/QuantitySelector.vue";
 import {useGroceryListStore} from "@/stores/grocery-list";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 
-
 const recipesStore = useRecipesStore();
 const ingredientsStore = useIngredientsStore();
 const groceryListStore = useGroceryListStore();
-
 
 const name = ref();
 const quantity = ref();
 const unit = ref();
 const ingredientId = ref();
-const input = useTemplateRef('ingredient-name')
+const input = useTemplateRef<HTMLInputElement>('ingredient-name');
 
 const showIngredientList = ref(false);
 
 async function addIngredient() {
+  if(!recipesStore.recipe?.id) {
+    return;
+  }
+
   await recipesStore.addIngredientToRecipe(recipesStore.recipe.id, ingredientId.value || name.value, quantity.value, unit.value);
 
-  input.value.focus();
+  input.value?.focus();
   name.value = null;
   quantity.value = null;
   unit.value = null;

@@ -48,7 +48,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const groceryListStore = useGroceryListStore();
 
-  if (!['recipes', 'show-recipe', 'show-grocery-list'].includes(to.name)) {
+  if (!['recipes', 'show-recipe', 'show-grocery-list'].includes(to.name as string)) {
     groceryListStore.$reset();
   }
 

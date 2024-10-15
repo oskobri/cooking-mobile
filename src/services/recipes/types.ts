@@ -5,6 +5,11 @@ export type Recipe = {
     name: string;
     picture: string
     ingredients: Ingredient[];
+    instructions?: string;
+    kcal?: number;
+    preparationTime?: number;
+    totalTime?: number;
+    url?: string;
 };
 
 export type InputCreateRecipe = {
@@ -13,4 +18,10 @@ export type InputCreateRecipe = {
 
 export type InputUpdateRecipe = {
     description: string;
+};
+
+export type InputAddIngredient = {
+    name?: string|number;
+    quantity?: number;
+    unit?: string;
 };

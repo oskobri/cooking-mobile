@@ -11,14 +11,12 @@ export const useIngredientsStore = defineStore("ingredientsStore", () => {
         ingredients.value = data;
     }
 
-    async function getIngredients(name: string|null): Promise<APIResponse<null>> {
+    async function getIngredients(name: string|null) {
         const response = await API.ingredient.getIngredients(name);
 
         if (response.success && response.status === 200) {
             initIngredients(response.content.data);
         }
-
-        return response;
     }
 
     return {

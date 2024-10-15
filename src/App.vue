@@ -7,7 +7,7 @@ import Header from "@/components/layouts/Header.vue";
   <Header></Header>
 
   <RouterView v-slot="{ Component, route }" class="mx-4">
-    <transition :name="route.meta.transition || 'fade'">
+    <transition :name="(route.meta.transition as string) || 'fade'">
       <component :is="Component"/>
     </transition>
   </RouterView>

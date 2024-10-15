@@ -3,7 +3,7 @@
     <RouterLink :to="{name: 'recipes'}">
       < Modifier les recettes
     </RouterLink>
-    <GroceryList :id="parseInt(props.id)" class="mt-4"/>
+    <GroceryList v-if="id" :id="parseInt(id)" class="mt-4"/>
   </main>
 </template>
 

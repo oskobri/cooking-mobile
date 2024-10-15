@@ -16,7 +16,7 @@ import {useRecipesStore} from "@/stores/recipes";
 
 const recipesStore = useRecipesStore();
 
-const scrollComponent = ref(null);
+const scrollComponent = ref<HTMLElement|null>(null);
 const waitForRecipes = ref(false);
 
 onMounted(async () => {
@@ -30,8 +30,8 @@ onUnmounted(() => {
 })
 
 async function handleScroll() {
-  let element = scrollComponent.value;
-  if (!waitForRecipes.value && element.getBoundingClientRect().bottom < (window.innerHeight + 50)) {
+  const element = scrollComponent.value;
+  if (!waitForRecipes.value && element && element.getBoundingClientRect().bottom < (window.innerHeight + 50)) {
     waitForRecipes.value = true;
     await recipesStore.getRecipes(recipesStore.currentPage + 1);
     waitForRecipes.value = false;

@@ -35,11 +35,11 @@ const groceryListStore = useGroceryListStore();
 
 const props = withDefaults(defineProps<{
   recipe: Recipe,
-  showActions?: Boolean,
-  mode?: String
+  showActions?: boolean,
+  mode?: string
 }>(), {
+  showActions: false,
   mode: 'compact',
-  showActions: false
 });
 
 const selected = computed(() => groceryListStore.recipes.some(recipe => recipe.id === props.recipe.id));

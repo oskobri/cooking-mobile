@@ -15,7 +15,7 @@ export type InputCreateGroceryList = {
 };
 
 export type InputUpdateGroceryList = {
-    name?: string;
+    name?: string | null;
     serving_count?: Number;
     recipes?: Number[];
 };

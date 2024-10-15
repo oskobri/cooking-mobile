@@ -17,7 +17,7 @@
   </div>
 </template>
 
-<script type="ts" setup>
+<script lang="ts" setup>
 
 import {ref, watch} from "vue";
 

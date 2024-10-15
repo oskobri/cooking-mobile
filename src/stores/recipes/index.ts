@@ -11,7 +11,7 @@ import type {Ingredient} from "@/services/ingredients/types";
 
 export const useRecipesStore = defineStore("recipesStore", () => {
     const recipes = ref<Recipe[]>([]);
-    const recipe = ref<Recipe>();
+    const recipe = ref<Recipe|null>();
     const currentPage = ref(1);
     const lastPage = ref();
 
@@ -99,19 +99,17 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         ingredient: number | string,
         quantity: number,
         unit: string,
-    ): Promise<APIResponse<null>> {
+    ) {
         const response = await API.recipe.addIngredient(recipe_id, ingredient, quantity, unit);
 
         if (response.success && (response.status === 200 || response.status === 201)) {
-            addNewIngredient({
-                id: response.content.data.id,
-                name: response.content.data.name,
+            addNewIngredient(<Ingredient> {
+                id: response.content?.data?.id,
+                name: response.content?.data?.name,
                 quantity,
                 unit
             });
         }
-
-        return response;
     }
 
     return {

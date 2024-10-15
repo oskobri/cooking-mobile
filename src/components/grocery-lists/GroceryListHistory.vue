@@ -13,7 +13,7 @@ import GroceryListCard from "@/components/grocery-lists/GroceryListCard.vue";
 
 const groceryListsStore = useGroceryListsStore();
 
-const scrollComponent = ref(null);
+const scrollComponent = ref<HTMLElement|null>(null);
 const waitForGroceryLists = ref(false);
 
 onMounted(async () => {
@@ -28,7 +28,7 @@ onUnmounted(() => {
 
 async function handleScroll() {
   let element = scrollComponent.value;
-  if (!waitForGroceryLists.value && element.getBoundingClientRect().bottom < (window.innerHeight + 50)) {
+  if (!waitForGroceryLists.value && element && element.getBoundingClientRect().bottom < (window.innerHeight + 50)) {
     waitForGroceryLists.value = true;
     await groceryListsStore.getGroceryLists(groceryListsStore.currentPage + 1);
     waitForGroceryLists.value = false;

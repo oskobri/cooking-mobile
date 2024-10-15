@@ -17,7 +17,9 @@ const recipesStore = useRecipesStore();
 
 onBeforeMount(async () => {
   recipesStore.clearRecipe();
-  await recipesStore.getRecipe(parseInt(props.id));
-})
+  if (props.id) {
+    await recipesStore.getRecipe(parseInt(props.id));
+  }
+});
 
 </script>

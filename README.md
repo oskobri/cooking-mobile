@@ -1,6 +1,9 @@
 # cooking-website
 
 ## TODO
+- split store recipe
+- fix quantitySelector sur Recipe pour ne plus prend en compte GroceryListStore
+- capacitor
 - Revoir le visuel de la page recette 
 - Tri (nom, kcal, temps)
 - Ajout tags

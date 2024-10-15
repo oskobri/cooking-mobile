@@ -4,6 +4,7 @@ export type Ingredient = {
     defaultUnit: string;
     quantity?: number;
     unit?: string;
+    checked?: boolean;
 };
 
 export type InputCreateIngredient = {

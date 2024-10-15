@@ -8,7 +8,7 @@
                   mode="side"/>
     </div>
     <div class="flex justify-end mb-2">
-      <QuantitySelector :initial-quantity="groceryListStore.servingCount" @update="groceryListStore.setServingCount"></QuantitySelector>
+      <QuantitySelector :initial-quantity="groceryListStore.servingCount" @update="groceryListStore.setServingCount"/>
     </div>
   <div class="flex flex-col gap-2">
     <div v-for="(ingredient, index) in groceryListStore.ingredients" :key="index">
@@ -33,14 +33,14 @@
 
 <script lang="ts" setup>
 import {useGroceryListStore} from "@/stores/grocery-list";
-import QuantitySelector from "@/components/input/QuantitySelector.vue";
 import {onBeforeMount} from "vue";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
+import QuantitySelector from "@/components/input/QuantitySelector.vue";
 
 const groceryListStore = useGroceryListStore();
 
 const props = defineProps<{
-  id: Number
+  id: number
 }>();
 
 onBeforeMount(() => {

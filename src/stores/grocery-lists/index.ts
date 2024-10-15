@@ -33,6 +33,7 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     }
 
     return {
+        currentPage,
         groceryLists,
         getGroceryLists,
     }

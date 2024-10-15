@@ -3,12 +3,13 @@ import {ref} from "vue";
 import type { Recipe} from "@/services/recipes/types";
 import type {GroceryList, InputCreateGroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types";
 import {API} from "@/services";
+import type {Ingredient} from "@/services/ingredients/types";
 
 export const useGroceryListStore = defineStore("groceryListStore", () => {
     const groceryList = ref<GroceryList | null>(null);
 
     const recipes = ref<Recipe[]>([]);
-    const ingredients = ref([]);
+    const ingredients = ref<Ingredient[]>([]);
     const servingCount = ref(2);
 
     function setServingCount(count: number) {
@@ -25,22 +26,23 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
     }
 
     function initIngredients() {
-        const mergedIngredients = {};
+        const mergedIngredients: {[key: string]: Ingredient} = {};
 
-        groceryList.value.recipes.forEach((recipe) => {
+        groceryList.value?.recipes.forEach((recipe) => {
             recipe.ingredients.forEach((ingredient) => {
                 const key = `${ingredient.name}-${ingredient.unit}`;
-                const quantity = ingredient.quantity * servingCount.value;
+                const quantity = (ingredient.quantity || 0) * servingCount.value;
 
                 if(mergedIngredients[key]) {
-                    mergedIngredients[key].quantity += quantity
+                    mergedIngredients[key].quantity = (mergedIngredients[key].quantity ?? 0) + quantity
                 }
                 else {
-                    mergedIngredients[key] = {...ingredient}
-                    mergedIngredients[key].quantity = quantity
+                    mergedIngredients[key] = {
+                        ...ingredient,
+                        quantity,
+                        checked: false
+                    }
                 }
-
-                mergedIngredients[key].isChecked = false;
             });
 
             ingredients.value = Object
@@ -51,7 +53,9 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
 
     function initRecipes()
     {
-        recipes.value = groceryList.value.recipes;
+        if(groceryList.value) {
+            recipes.value = groceryList.value.recipes;
+        }
     }
 
     function checkIngredient(index: number)
@@ -82,6 +86,10 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
     }
 
     async function updateGroceryList() {
+
+        if(!groceryList.value) {
+            return;
+        }
 
         const input: InputUpdateGroceryList = {
             name: groceryList.value.name,
