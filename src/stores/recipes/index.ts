@@ -2,10 +2,8 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import type {
     InputCreateRecipe,
-    InputUpdateRecipe,
     Recipe,
 } from "@/services/recipes/types";
-import type {APIResponse} from "@/services/types";
 import {API} from "@/services";
 import type {Ingredient} from "@/services/ingredients/types";
 
@@ -53,45 +51,21 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         }
 
         const response = await API.recipe.getRecipes(currentPage.value);
-        if (response.success && response.status === 200) {
-            pushRecipes(response.content.data);
-            lastPage.value = response.content.meta.last_page;
-        }
+        pushRecipes(response.data);
+        lastPage.value = response.meta.last_page;
     }
 
-    async function getRecipe(id: number): Promise<APIResponse<null>> {
+    async function getRecipe(id: number) {
         const response = await API.recipe.getRecipe(id);
-
-        if (response.success && response.status === 200) {
-            initRecipe(response.content.data);
-        }
-
-        return response;
+        initRecipe(response.data);
     }
 
     async function createRecipe(
         input: InputCreateRecipe
-    ): Promise<APIResponse<null>> {
+    ): Promise<Recipe> {
         const response = await API.recipe.createRecipe(input);
-
-        if (response.success && response.status === 201) {
-            addNewRecipe(response.content.data);
-        }
-
-        return response;
-    }
-
-    async function updateRecipe(
-        id: number,
-        input: InputUpdateRecipe
-    ): Promise<APIResponse<null>> {
-        const response = await API.recipe.updateRecipe(id, input);
-
-        if (response.success && response.status === 200) {
-            addNewRecipe(response.content.data);
-        }
-
-        return response;
+        addNewRecipe(response.data);
+        return response.data;
     }
 
     async function addIngredientToRecipe(
@@ -102,14 +76,12 @@ export const useRecipesStore = defineStore("recipesStore", () => {
     ) {
         const response = await API.recipe.addIngredient(recipe_id, ingredient, quantity, unit);
 
-        if (response.success && (response.status === 200 || response.status === 201)) {
-            addNewIngredient(<Ingredient> {
-                id: response.content?.data?.id,
-                name: response.content?.data?.name,
-                quantity,
-                unit
-            });
-        }
+        addNewIngredient(<Ingredient> {
+            id: response.data.id,
+            name: response.data.name,
+            quantity,
+            unit
+        });
     }
 
     return {
@@ -120,7 +92,6 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         getRecipes,
         getRecipe,
         createRecipe,
-        updateRecipe,
         addIngredientToRecipe,
     };
 });

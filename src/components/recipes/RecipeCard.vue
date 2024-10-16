@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts" setup>
-import {computed, withDefaults} from "vue";
+import {computed} from "vue";
 import {useGroceryListStore} from "@/stores/grocery-list";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 import type {Recipe} from "@/services/recipes/types";

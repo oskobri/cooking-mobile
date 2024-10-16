@@ -9,9 +9,9 @@ import Recipe from "@/components/recipes/Recipe.vue";
 import {useRecipesStore} from "@/stores/recipes";
 import {onBeforeMount} from "vue";
 
-const props = defineProps({
-  id: String
-})
+const props = defineProps<{
+  id: string
+}>();
 
 const recipesStore = useRecipesStore();
 

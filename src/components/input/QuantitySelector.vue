@@ -23,11 +23,10 @@ import {ref, watch} from "vue";
 
 const emit = defineEmits(['update'])
 
-const props = defineProps({
-  initialQuantity: {
-    type: Number,
-    default: 1
-  }
+const props = withDefaults(defineProps<{
+  initialQuantity: number
+}>(), {
+  initialQuantity: 1,
 });
 
 const quantity = ref(props.initialQuantity);

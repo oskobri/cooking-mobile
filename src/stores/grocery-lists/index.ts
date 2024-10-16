@@ -9,7 +9,6 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
     const currentPage = ref(1);
     const lastPage = ref();
 
-
     function pushGroceryLists(data: GroceryList[]) {
         const ids = groceryLists.value.map(groceryList => groceryList.id);
         const dataFiltered = data.filter(groceryList => !ids.includes(groceryList.id));
@@ -26,10 +25,8 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
         }
 
         const response = await API.groceryList.getGroceryLists(currentPage.value);
-        if (response.success && response.status === 200) {
-            pushGroceryLists(response.content.data);
-            lastPage.value = response.content.meta.last_page;
-        }
+        pushGroceryLists(response.data);
+        lastPage.value = response.meta.last_page;
     }
 
     return {

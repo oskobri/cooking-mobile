@@ -70,19 +70,15 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
 
     async function getGroceryList(id: number) {
         const response = await API.groceryList.getGroceryList(id);
-        if (response.success && response.status === 200) {
-            groceryList.value = response.content.data;
-            initRecipes();
-            initIngredients();
-        }
+        groceryList.value = response.data;
+        initRecipes();
+        initIngredients();
     }
 
     async function createGroceryList(input: InputCreateGroceryList) {
         const response = await API.groceryList.createGroceryList(input);
 
-        if (response.success && response.status === 201) {
-            groceryList.value = response.content.data;
-        }
+        groceryList.value = response.data;
     }
 
     async function updateGroceryList() {
@@ -99,9 +95,7 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
 
         const response = await API.groceryList.updateGroceryList(groceryList.value.id, input);
 
-        if (response.success && response.status === 200) {
-            groceryList.value = response.content.data;
-        }
+        groceryList.value = response.data;
     }
 
     function $reset() {

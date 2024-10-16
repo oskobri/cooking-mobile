@@ -7,7 +7,6 @@
 <script lang="ts" setup>
 import {useRecipesStore} from "@/stores/recipes";
 import type {InputCreateRecipe} from "@/services/recipes/types";
-import Recipe from "@/components/recipes/Recipe.vue";
 import {ref} from "vue";
 import router from "@/router";
 
@@ -19,10 +18,7 @@ async function submit() {
   const input: InputCreateRecipe = {
     name: name.value,
   }
-  const {success, content} = await recipesStore.createRecipe(input);
-
-  if (success && content) {
-    router.push({path: `/recipes/${content.data.id}`})
-  }
+  const recipe = await recipesStore.createRecipe(input);
+  router.push({path: `/recipes/${recipe.id}`})
 }
 </script>

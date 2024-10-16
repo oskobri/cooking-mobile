@@ -12,9 +12,9 @@ import GroceryList from '@/components/grocery-lists/GroceryList.vue';
 import {onBeforeMount} from "vue";
 import {useGroceryListStore} from "@/stores/grocery-list";
 
-const props = defineProps({
-  id: String
-});
+defineProps<{
+  id: string
+}>();
 
 const groceryListStore = useGroceryListStore();
 

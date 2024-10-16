@@ -1,31 +1,16 @@
 import http from "../api";
-import type { APIResponse } from "../types";
-import type { Ingredient, InputCreateIngredient, InputUpdateIngredient } from "./types";
+import type {APIResponsePaginated} from "../types";
+import type {Ingredient} from "./types";
 
-async function getIngredients(name: string|null) {
-    return await http.get<APIResponse<Ingredient[]>>(`ingredients?name=${name}`);
-}
-
-async function getIngredient(id: number) {
-    return await http.get<APIResponse<Ingredient>>(`ingredients/${id}`);
-}
-
-async function createIngredient(input: InputCreateIngredient) {
-    return await http.post<APIResponse<Ingredient>>("ingredients", input);
-}
-
-async function updateIngredient(id: number, input: InputUpdateIngredient) {
-    return await http.put<APIResponse<boolean>>(`ingredients/${id}`, input);
-}
-
-async function deleteIngredient(id: number) {
-    return await http.delete<APIResponse<boolean>>(`ingredients/${id}`);
+async function getIngredients(name: string | null): Promise<APIResponsePaginated<Ingredient[]>> {
+    try {
+        const response = await http.get<APIResponsePaginated<Ingredient[]>>(`ingredients?name=${name}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error when fetching ingredients: ${error}`);
+    }
 }
 
 export default {
     getIngredients,
-    getIngredient,
-    createIngredient,
-    updateIngredient,
-    deleteIngredient,
 };

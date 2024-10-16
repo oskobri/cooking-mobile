@@ -1,5 +1,9 @@
 export type APIResponse<T> = {
-    success: boolean
-    content?: any | null;
-    status?: number;
+    data: T;
+}
+
+export type APIResponsePaginated<T> = {
+    data: T;
+    meta: any;
+    links: any;
 }

@@ -30,8 +30,6 @@ onBeforeMount(() => {
 const getLastGroceryList = async () => {
   const response = await API.groceryList.getLastGroceryList();
 
-  if (response.success && response.status === 200) {
-    groceryList.value = response.content.data;
-  }
+  groceryList.value = response.data;
 }
 </script>

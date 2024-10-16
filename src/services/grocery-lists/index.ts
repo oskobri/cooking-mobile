@@ -1,33 +1,50 @@
 import http from "../api";
-import type { APIResponse } from "../types";
+import type {APIResponse, APIResponsePaginated} from "../types";
 import type { GroceryList, InputCreateGroceryList, InputUpdateGroceryList } from "./types";
 
-async function getGroceryLists(page: number) {
-    return await http.get<APIResponse<GroceryList[]>>(`grocery-lists?page=${page}`);
+async function getGroceryLists(page: number): Promise<APIResponsePaginated<GroceryList[]>> {
+    try {
+        const response = await http.get<APIResponsePaginated<GroceryList[]>>(`grocery-lists?page=${page}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error when fetching grocery lists: ${error}`);
+    }
 }
 
-async function getGroceryList(id: number) {
-    return await http.get<APIResponse<GroceryList>>(`grocery-lists/${id}`);
+async function getGroceryList(id: number): Promise<APIResponse<GroceryList>> {
+    try {
+        const response = await http.get<APIResponse<GroceryList>>(`grocery-lists/${id}`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error when fetching grocery list ${id}: ${error}`);
+    }
 }
 
-async function getLastGroceryList() {
-    return await http.get<APIResponse<GroceryList>>(`grocery-lists/last`);
+async function getLastGroceryList(): Promise<APIResponse<GroceryList>> {
+    try {
+        const response = await http.get<APIResponse<GroceryList>>(`grocery-lists/last`);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error when fetching last grocery list: ${error}`);
+    }
 }
 
-async function createGroceryList(input: InputCreateGroceryList) {
-    return await http.post<APIResponse<GroceryList>>("grocery-lists", input);
+async function createGroceryList(input: InputCreateGroceryList): Promise<APIResponse<GroceryList>> {
+    try {
+        const response = await http.post<APIResponse<GroceryList>>("grocery-lists", input);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error when creating grocery list: ${error}`);
+    }
 }
 
-async function updateGroceryList(id: number, input: InputUpdateGroceryList) {
-    return await http.put<APIResponse<boolean>>(`grocery-lists/${id}`, input);
-}
-
-async function deleteGroceryList(id: number) {
-    return await http.delete<APIResponse<boolean>>(`grocery-lists/${id}`);
-}
-
-async function addRecipe(groceryListId: number, recipeId: number) {
-    return await http.post<APIResponse<boolean>>(`grocery-lists/${groceryListId}/recipes/${recipeId}`);
+async function updateGroceryList(id: number, input: InputUpdateGroceryList): Promise<APIResponse<GroceryList>> {
+    try {
+        const response = await http.put<APIResponse<GroceryList>>(`grocery-lists/${id}`, input);
+        return response.data;
+    } catch (error) {
+        throw new Error(`Error when updating grocery list ${id}: ${error}`);
+    }
 }
 
 export default {
@@ -36,6 +53,4 @@ export default {
     getLastGroceryList,
     createGroceryList,
     updateGroceryList,
-    deleteGroceryList,
-    addRecipe,
 };
