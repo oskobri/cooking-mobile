@@ -2,7 +2,7 @@
     <button
         v-if="selected"
         @click="goToGroceryList"
-        class="fixed bottom-0 right-0 z-10 flex justify-between items-center w-full p-4 bg-accent text-white text-xl shadow-2xl duration-300 ease-in-out">
+        class="fixed bottom-0 right-0 z-10 flex justify-between items-center w-full px-6 pb-10 pt-4 bg-accent text-white text-xl shadow-2xl duration-300 ease-in-out">
       <span class="text-lg" v-if="groceryListId">{{ $t('groceryLists.link_button') }}</span>
       <span class="text-lg" v-else>Générer la liste de course</span>
       <div class="badge badge-lg badge-outline">{{ selected }}</div>

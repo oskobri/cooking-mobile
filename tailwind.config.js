@@ -5,7 +5,11 @@ export default {
         "./src/**/*.{ts,vue}",
     ],
     theme: {
-        extend: {},
+        extend: {
+            padding: {
+                'safe-bottom': 'env(safe-area-inset-bottom)',
+            },
+        },
     },
     plugins: [
         require('daisyui'),

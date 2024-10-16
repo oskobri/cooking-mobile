@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header :class="headerClasses">
     <div class="navbar">
       <div class="navbar-start">
         <button @click.stop="toggleMenu" class="block z-20">
@@ -26,11 +26,23 @@
 <script setup lang="ts">
 import {RouterLink} from "vue-router";
 import BurgerMenu from "@/components/layouts/BurgerMenu.vue";
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 const burgerMenu = ref<InstanceType<typeof BurgerMenu> | null>(null);
 
 const toggleMenu = () => {
     burgerMenu.value?.toggleMenu();
 };
+
+const headerClasses = ref('p-4');
+
+const isIos = () => {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+};
+
+onMounted(() => {
+  if (isIos()) {
+    headerClasses.value += ' pt-10';
+  }
+});
 </script>
