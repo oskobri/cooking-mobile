@@ -1,5 +1,5 @@
 <template>
-  <div class="card bg-base-100 shadow-xl" :class="`card-` + mode">
+  <div class="bg-base-100 shadow-xl" :class="mode === 'side' ? 'flex flex-row rounded-lg' : 'card card-compact'">
     <router-link v-if="recipe" :to="{ name: 'show-recipe', params: { id: recipe.id } }" :class="mode === 'side' ? 'w-1/3' : ''">
       <figure >
         <img

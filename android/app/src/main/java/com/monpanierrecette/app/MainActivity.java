@@ -1,4 +1,4 @@
-package com.monpanierrecette.app;
+package app.papille.app;
 
 import com.getcapacitor.BridgeActivity;
 

@@ -9,6 +9,9 @@ export default {
             padding: {
                 'safe-bottom': 'env(safe-area-inset-bottom)',
             },
+            height: {
+                '22': '5.5rem',
+            }
         },
     },
     plugins: [

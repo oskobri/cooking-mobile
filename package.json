@@ -10,7 +10,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "sync": "npm run build && npx cap sync",
-    "ios": "npm run build && npx cap sync && npx cap open ios"
+    "ios": "npm run build && npx cap sync && npx cap open ios",
+    "dev-copy": "NODE_ENV=development npx cap copy",
+    "dev-ios": "NODE_ENV=development npx cap open ios"
   },
   "dependencies": {
     "@capacitor/android": "^6.1.2",

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Mon panier recette</string>
-    <string name="title_activity_main">Mon panier recette</string>
-    <string name="package_name">com.monpanierrecette.app</string>
-    <string name="custom_url_scheme">com.monpanierrecette.app</string>
+    <string name="app_name">Papille</string>
+    <string name="title_activity_main">Papille</string>
+    <string name="package_name">app.papille.app</string>
+    <string name="custom_url_scheme">app.papille.app</string>
 </resources>

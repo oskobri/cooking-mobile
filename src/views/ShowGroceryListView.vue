@@ -1,6 +1,6 @@
 <template>
   <main>
-    <RouterLink :to="{name: 'recipes'}">
+    <RouterLink :to="{name: 'home'}">
       < Modifier les recettes
     </RouterLink>
     <GroceryList v-if="id" :id="parseInt(id)" class="mt-4"/>

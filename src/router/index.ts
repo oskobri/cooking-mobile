@@ -21,11 +21,6 @@ const router = createRouter({
       component: CreateRecipeView
     },
     {
-      path: '/recipes',
-      name: 'recipes',
-      component: RecipeListView
-    },
-    {
       path: '/recipes/:id',
       name: 'show-recipe',
       props: true,
@@ -48,7 +43,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const groceryListStore = useGroceryListStore();
 
-  if (!['recipes', 'show-recipe', 'show-grocery-list'].includes(to.name as string)) {
+  if (!['home', 'show-recipe', 'show-grocery-list'].includes(to.name as string)) {
     groceryListStore.$reset();
   }
 
