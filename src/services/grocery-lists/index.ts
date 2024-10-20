@@ -47,10 +47,20 @@ async function updateGroceryList(id: number, input: InputUpdateGroceryList): Pro
     }
 }
 
+async function deleteGroceryList(id: number): Promise<number> {
+    try {
+        const response = await http.delete<APIResponse<GroceryList>>(`grocery-lists/${id}`);
+        return response.status;
+    } catch (error) {
+        throw new Error(`Error when deleting grocery list ${id}: ${error}`);
+    }
+}
+
 export default {
     getGroceryLists,
     getGroceryList,
     getLastGroceryList,
     createGroceryList,
     updateGroceryList,
+    deleteGroceryList
 };

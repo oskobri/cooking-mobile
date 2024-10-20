@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import type {GroceryList} from "@/services/grocery-lists/types";
+import type {GroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types";
 import {API} from "@/services";
 
 export const useGroceryListsStore = defineStore("groceryListsStore", () => {
@@ -29,9 +29,31 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
         lastPage.value = response.meta.last_page;
     }
 
+    async function updateGroceryList(id: number, input: InputUpdateGroceryList) {
+        const response = await API.groceryList.updateGroceryList(id, input);
+        if(response.data) {
+            const indexToReplace = groceryLists.value.findIndex(groceryList => groceryList.id === id);
+            if(indexToReplace !== -1) {
+                groceryLists.value[indexToReplace] = response.data;
+            }
+        }
+    }
+
+    async function deleteGroceryList(id: number) {
+        const status = await API.groceryList.deleteGroceryList(id);
+        if(status === 204) {
+            const indexToDelete = groceryLists.value.findIndex(groceryList => groceryList.id === id);
+            if(indexToDelete !== -1) {
+                groceryLists.value.splice(indexToDelete, 1);
+            }
+        }
+    }
+
     return {
         currentPage,
         groceryLists,
         getGroceryLists,
+        updateGroceryList,
+        deleteGroceryList
     }
 });
