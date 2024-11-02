@@ -39,7 +39,6 @@ const props = defineProps<{
 
 const showActions = ref(false);
 
-
 const updateGroceryList = () => {
   const title = prompt('Nouveau titre');
 

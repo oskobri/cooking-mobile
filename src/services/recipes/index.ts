@@ -3,9 +3,14 @@ import type {APIResponse, APIResponsePaginated} from "../types";
 import type {Recipe, InputCreateRecipe, InputAddIngredient} from "./types";
 import type {Ingredient} from "@/services/ingredients/types";
 
-async function getRecipes(page: number): Promise<APIResponsePaginated<Recipe[]>> {
+async function getRecipes(page: number, sort: string | null = null): Promise<APIResponsePaginated<Recipe[]>> {
     try {
-        const response =  await http.get<APIResponsePaginated<Recipe[]>>(`recipes?page=${page}`);
+        const response =  await http.get<APIResponsePaginated<Recipe[]>>('recipes', {
+            params: {
+                page,
+                sort
+            }
+        });
         return response.data;
     } catch(error) {
         throw new Error(`Error when fetching recipes: ${error}`);

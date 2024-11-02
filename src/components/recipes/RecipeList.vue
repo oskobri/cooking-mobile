@@ -1,5 +1,7 @@
 <template>
   <div>
+    <SearchBar class="mb-4"/>
+
     <div class="flex flex-wrap gap-4" ref="scrollComponent">
       <RecipeCard v-for="recipe in recipesStore.recipes"
                   :key="recipe.id"
@@ -13,6 +15,7 @@
 import {onMounted, onUnmounted, ref} from "vue";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
 import {useRecipesStore} from "@/stores/recipes";
+import SearchBar from "@/components/recipes/SearchBar.vue";
 
 const recipesStore = useRecipesStore();
 
