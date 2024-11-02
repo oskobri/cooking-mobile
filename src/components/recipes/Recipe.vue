@@ -1,29 +1,28 @@
 <template>
-  <div v-if="recipesStore.recipe">
+  <div v-if="recipeStore.recipe">
     <figure>
       <img
-          :src="recipesStore.recipe.picture"
-          :alt="recipesStore.recipe.name"/>
+          :src="recipeStore.recipe.picture"
+          :alt="recipeStore.recipe.name"/>
     </figure>
-    <a v-if="recipesStore.recipe.url" :href="recipesStore.recipe.url" target="_blank" rel="noopener noreferrer">
-      <h1 class="text-2xl mb-4">{{ recipesStore.recipe.name }}</h1>
+    <a v-if="recipeStore.recipe.url" :href="recipeStore.recipe.url" target="_blank" rel="noopener noreferrer">
+      <h1 class="text-2xl mb-4">{{ recipeStore.recipe.name }}</h1>
     </a>
-    <h1 v-else class="text-xl mb-4">{{ recipesStore.recipe.name }}</h1>
+    <h1 v-else class="text-xl mb-4">{{ recipeStore.recipe.name }}</h1>
 
-    <RecipeInformation :recipe="recipesStore.recipe"/>
-
+    <RecipeInformation :recipe="recipeStore.recipe"/>
 
     <div class="flex justify-end my-2">
-      <QuantitySelector :initial-quantity="groceryListStore.servingCount"
-                        @update="groceryListStore.setServingCount"></QuantitySelector>
+      <QuantitySelector :initial-quantity="recipeStore.servingCount"
+                        @update="recipeStore.setServingCount"></QuantitySelector>
     </div>
 
     <div>Ingrédients</div>
-    <div v-for="ingredient in recipesStore.recipe.ingredients">
+    <div v-for="ingredient in recipeStore.ingredients" :key="ingredient.id">
       {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
     </div>
 
-  <div class="flex flex-col gap-2 mt-4">
+    <div class="flex flex-col gap-2 mt-4">
       <div>
         <input v-model="name" ref="ingredient-name" @input="searchIngredient" type="text"
                :placeholder="$t('recipes.ingredient.name')"
@@ -56,24 +55,22 @@
       <button @click="addIngredient" class="btn btn-success">{{ $t('common.add') }}</button>
     </div>
 
-    <div v-if="recipesStore.recipe.instructions"
+    <div v-if="recipeStore.recipe.instructions"
          class="text-justify mt-8"
-         v-html="recipesStore.recipe.instructions"></div>
+         v-html="recipeStore.recipe.instructions"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {useRecipesStore} from "@/stores/recipes";
+import {useRecipeStore} from "@/stores/recipe";
 import {ref, useTemplateRef} from "vue";
 import units from "@/enums/units";
 import {useIngredientsStore} from "@/stores/ingredients";
 import QuantitySelector from "@/components/input/QuantitySelector.vue";
-import {useGroceryListStore} from "@/stores/grocery-list";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 
-const recipesStore = useRecipesStore();
+const recipeStore = useRecipeStore();
 const ingredientsStore = useIngredientsStore();
-const groceryListStore = useGroceryListStore();
 
 const name = ref();
 const quantity = ref();
@@ -84,11 +81,11 @@ const input = useTemplateRef<HTMLInputElement>('ingredient-name');
 const showIngredientList = ref(false);
 
 async function addIngredient() {
-  if(!recipesStore.recipe?.id) {
+  if (!recipeStore.recipe?.id) {
     return;
   }
 
-  await recipesStore.addIngredientToRecipe(recipesStore.recipe.id, ingredientId.value || name.value, quantity.value, unit.value);
+  await recipeStore.addIngredientToRecipe(recipeStore.recipe.id, ingredientId.value || name.value, quantity.value, unit.value);
 
   input.value?.focus();
   name.value = null;

@@ -28,10 +28,12 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
     function initIngredients() {
         const mergedIngredients: {[key: string]: Ingredient} = {};
 
-        groceryList.value?.recipes.forEach((recipe) => {
-            recipe.ingredients.forEach((ingredient) => {
-                const key = `${ingredient.name}-${ingredient.unit}`;
-                const quantity = (ingredient.quantity || 0) * servingCount.value;
+        const originalIngredients = ingredients.value;
+
+        groceryList.value?.recipes.forEach((recipe: Recipe) => {
+            recipe.ingredients.forEach((ingredient: Ingredient) => {
+                const key: string = `${ingredient.name}-${ingredient.unit}`;
+                const quantity: number = (ingredient.quantity || 0) * servingCount.value;
 
                 if(mergedIngredients[key]) {
                     mergedIngredients[key].quantity = (mergedIngredients[key].quantity ?? 0) + quantity
@@ -40,7 +42,7 @@ export const useGroceryListStore = defineStore("groceryListStore", () => {
                     mergedIngredients[key] = {
                         ...ingredient,
                         quantity,
-                        checked: false
+                        checked: originalIngredients.find(originalIngredient => originalIngredient.id === ingredient.id)?.checked
                     }
                 }
             });
