@@ -3,12 +3,22 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL:  import.meta.env.VITE_API_ENDPOINT,
     headers: {
-        Accept: 'application/json'
+        Accept: 'application/json',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
-    withCredentials: true,
-    withXSRFToken: true,
-    xsrfCookieName: "XSRF-TOKEN",
-    xsrfHeaderName: "X-XSRF-TOKEN",
+});
+
+
+instance.interceptors.request.use(async (config) => {
+    const token = localStorage.getItem('token');
+
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    return config;
+}, (error) => {
+    return Promise.reject(error);
 });
 
 

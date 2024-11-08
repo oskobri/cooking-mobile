@@ -1,7 +1,7 @@
 <template>
   <main>
     <div v-if="authenticated">
-      Salut {{ user.name }}!
+      Salut {{ user?.name }}!
 
       <button @click="logout" class="btn btn-block bg-red-500 text-base-100">Logout</button>
     </div>
