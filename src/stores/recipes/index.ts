@@ -41,7 +41,7 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         recipes.value.splice(idx, 1);
     }
 
-    async function getRecipes(page?: number, sort: string|null = null) {
+    async function getRecipes(page?: number, sort: string|null = null, direction: string|null = null) {
         if (page && page > lastPage.value || !page && currentPage.value > lastPage.value) {
             return;
         }
@@ -54,7 +54,7 @@ export const useRecipesStore = defineStore("recipesStore", () => {
             recipes.value = [];
         }
 
-        const response = await API.recipe.getRecipes(currentPage.value, sort);
+        const response = await API.recipe.getRecipes(currentPage.value, sort, direction);
         pushRecipes(response.data);
         lastPage.value = response.meta.last_page;
     }
