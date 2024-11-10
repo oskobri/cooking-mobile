@@ -7,7 +7,10 @@ const apiUrl = 'api/recipes';
 
 async function getRecipes(page: number, sort: string | null = null, direction: string | null = null): Promise<APIResponsePaginated<Recipe[]>> {
     try {
-        const response =  await http.get<APIResponsePaginated<Recipe[]>>(`${apiUrl}`, {
+        // 2 different routes for guest and logged-in users
+        const suffixGuest = localStorage.getItem('token') === null ? '-guest' : '';
+
+        const response =  await http.get<APIResponsePaginated<Recipe[]>>(`${apiUrl + suffixGuest}`, {
             params: {
                 page,
                 sort,
@@ -22,7 +25,10 @@ async function getRecipes(page: number, sort: string | null = null, direction: s
 
 async function getRecipe(id: number): Promise<APIResponse<Recipe>> {
     try {
-        const response =  await http.get<APIResponse<Recipe>>(`${apiUrl}/${id}`);
+        // 2 different routes for guest and logged-in users
+        const suffixGuest = localStorage.getItem('token') === null ? '-guest' : '';
+
+        const response =  await http.get<APIResponse<Recipe>>(`${apiUrl + suffixGuest}/${id}`);
         return response.data;
     } catch(error) {
         throw new Error(`Error when fetching recipe ${id}: ${error}`);

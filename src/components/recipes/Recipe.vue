@@ -22,7 +22,7 @@
       {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
     </div>
 
-    <div class="flex flex-col gap-2 mt-4">
+    <div class="flex flex-col gap-2 mt-4 hidden">
       <div>
         <input v-model="name" ref="ingredient-name" @input="searchIngredient" type="text"
                :placeholder="$t('recipes.ingredient.name')"
