@@ -1,9 +1,9 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import ShowRecipeView from "@/views/ShowRecipeView.vue";
-import CreateRecipeView from "@/views/CreateRecipeView.vue";
-import GroceryListHistoryView from "@/views/GroceryListHistoryView.vue";
-import ShowGroceryListView from '@/views/ShowGroceryListView.vue';
+import RecipeShow from "@/views/RecipeShow.vue";
+import RecipeCreate from "@/views/RecipeCreate.vue";
+import GroceryListIndex from "@/views/GroceryListIndex.vue";
+import GroceryListShow from '@/views/GroceryListShow.vue';
 import {useGroceryListStore} from "@/stores/grocery-list";
 import LoginView from "@/views/Auth/LoginView.vue";
 
@@ -23,24 +23,24 @@ const router = createRouter({
         {
             path: '/recipes/create',
             name: 'create-recipe',
-            component: CreateRecipeView
+            component: RecipeCreate
         },
         {
             path: '/recipes/:id',
             name: 'show-recipe',
             props: true,
-            component: ShowRecipeView
+            component: RecipeShow
         },
         {
             path: '/grocery-lists',
             name: 'grocery-lists',
-            component: GroceryListHistoryView
+            component: GroceryListIndex
         },
         {
             path: '/grocery-list/:id',
             name: 'show-grocery-list',
             props: true,
-            component: ShowGroceryListView,
+            component: GroceryListShow,
         }
     ]
 });

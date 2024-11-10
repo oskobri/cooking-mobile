@@ -55,7 +55,11 @@ export const useRecipesStore = defineStore("recipesStore", () => {
         }
 
         const response = await API.recipe.getRecipes(currentPage.value, sort, direction);
-        pushRecipes(response.data);
+
+        currentPage.value === 1
+            ? recipes.value = response.data
+            : pushRecipes(response.data);
+
         lastPage.value = response.meta.last_page;
     }
 

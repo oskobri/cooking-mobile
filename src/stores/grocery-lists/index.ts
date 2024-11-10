@@ -25,7 +25,11 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
         }
 
         const response = await API.groceryList.getGroceryLists(currentPage.value);
-        pushGroceryLists(response.data);
+
+        currentPage.value === 1
+            ? groceryLists.value = response.data
+            : pushGroceryLists(response.data);
+
         lastPage.value = response.meta.last_page;
     }
 
