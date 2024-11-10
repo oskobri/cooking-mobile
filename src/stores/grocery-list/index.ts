@@ -1,9 +1,9 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import type { Recipe} from "@/services/recipes/types";
-import type {GroceryList, InputCreateGroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types";
+import type { Recipe} from "@/services/recipes/types.d";
+import type {GroceryList, InputCreateGroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types.d";
 import {API} from "@/services";
-import type {Ingredient} from "@/services/ingredients/types";
+import type {Ingredient} from "@/services/ingredients/types.d";
 
 export const useGroceryListStore = defineStore("groceryListStore", () => {
     const groceryList = ref<GroceryList | null>(null);

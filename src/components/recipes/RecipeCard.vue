@@ -29,7 +29,7 @@
 import {computed} from "vue";
 import {useGroceryListStore} from "@/stores/grocery-list";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
-import type {Recipe} from "@/services/recipes/types";
+import type {Recipe} from "@/services/recipes/types.d";
 
 const groceryListStore = useGroceryListStore();
 

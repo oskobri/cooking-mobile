@@ -1,6 +1,6 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import type {GroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types";
+import type {GroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types.d";
 import {API} from "@/services";
 
 export const useGroceryListsStore = defineStore("groceryListsStore", () => {

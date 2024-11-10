@@ -11,9 +11,7 @@ import groceryLists_fr from "@/i18n/fr/grocery-lists";
 
 import App from './App.vue'
 import router from './router'
-import useAuth from '@/composables/useAuth.js';
-
-const { attempt } = useAuth()
+import {useUserStore} from "@/stores/user";
 
 const i18n = createI18n({
     locale: 'fr',
@@ -33,6 +31,9 @@ app.use(createPinia())
 app.use(router)
 app.use(i18n)
 
+
+
+const { attempt } = useUserStore()
 
 attempt().then(() => {
     app.mount('#app')

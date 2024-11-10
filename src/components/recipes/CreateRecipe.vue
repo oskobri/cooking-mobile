@@ -6,7 +6,7 @@
 
 <script lang="ts" setup>
 import {useRecipesStore} from "@/stores/recipes";
-import type {InputCreateRecipe} from "@/services/recipes/types";
+import type {InputCreateRecipe} from "@/services/recipes/types.d";
 import {ref} from "vue";
 import router from "@/router";
 

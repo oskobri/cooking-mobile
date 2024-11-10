@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import {API} from "@/services";
-import type {Ingredient} from "@/services/ingredients/types";
+import type {Ingredient} from "@/services/ingredients/types.d";
 
 export const useIngredientsStore = defineStore("ingredientsStore", () => {
     const ingredients = ref<Ingredient[]>([]);

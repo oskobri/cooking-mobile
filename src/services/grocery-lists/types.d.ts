@@ -1,4 +1,4 @@
-import type {Recipe} from "@/services/recipes/types";
+import type {Recipe} from "@/services/recipes/types.d";
 
 export type GroceryList = {
     id: number;

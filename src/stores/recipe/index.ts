@@ -2,9 +2,9 @@ import {defineStore} from "pinia";
 import {ref} from "vue";
 import type {
     Recipe,
-} from "@/services/recipes/types";
+} from "@/services/recipes/types.d";
 import {API} from "@/services";
-import type {Ingredient} from "@/services/ingredients/types";
+import type {Ingredient} from "@/services/ingredients/types.d";
 
 export const useRecipeStore = defineStore("recipeStore", () => {
     const recipe = ref<Recipe|null>();

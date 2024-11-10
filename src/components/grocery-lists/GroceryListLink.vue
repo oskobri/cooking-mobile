@@ -10,7 +10,7 @@
 import {useGroceryListStore} from "@/stores/grocery-list";
 import {computed} from "vue";
 import router from "@/router";
-import type {InputCreateGroceryList} from "@/services/grocery-lists/types";
+import type {InputCreateGroceryList} from "@/services/grocery-lists/types.d";
 
 const groceryListStore = useGroceryListStore();
 

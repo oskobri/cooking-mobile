@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import {onBeforeMount, ref} from "vue";
 import {API} from "@/services";
-import type {GroceryList} from "@/services/grocery-lists/types";
+import type {GroceryList} from "@/services/grocery-lists/types.d";
 import GroceryListLink from "@/components/grocery-lists/GroceryListLink.vue";
 import RecipeList from "@/components/recipes/RecipeList.vue";
 

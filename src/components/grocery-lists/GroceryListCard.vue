@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import type {GroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types";
+import type {GroceryList, InputUpdateGroceryList} from "@/services/grocery-lists/types.d";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
 import {ref} from "vue";
 import {vOnClickOutside} from '@vueuse/components'

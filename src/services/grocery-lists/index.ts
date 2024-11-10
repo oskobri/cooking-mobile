@@ -1,6 +1,6 @@
 import http from "../api";
-import type {APIResponse, APIResponsePaginated} from "../types";
-import type { GroceryList, InputCreateGroceryList, InputUpdateGroceryList } from "./types";
+import type {APIResponse, APIResponsePaginated} from "../types.d";
+import type { GroceryList, InputCreateGroceryList, InputUpdateGroceryList } from "./types.d";
 
 const apiUrl = 'api/grocery-lists';
 

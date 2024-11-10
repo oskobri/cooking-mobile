@@ -1,6 +1,6 @@
 import http from "../api";
-import type {APIResponsePaginated} from "../types";
-import type {Ingredient} from "./types";
+import type {APIResponsePaginated} from "../types.d";
+import type {Ingredient} from "./types.d";
 
 const apiUrl = 'api/ingredients';
 

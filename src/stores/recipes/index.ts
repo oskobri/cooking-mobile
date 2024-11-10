@@ -3,9 +3,9 @@ import {ref} from "vue";
 import type {
     InputCreateRecipe,
     Recipe,
-} from "@/services/recipes/types";
+} from "@/services/recipes/types.d";
 import {API} from "@/services";
-import type {Ingredient} from "@/services/ingredients/types";
+import type {Ingredient} from "@/services/ingredients/types.d";
 
 export const useRecipesStore = defineStore("recipesStore", () => {
     const recipes = ref<Recipe[]>([]);
