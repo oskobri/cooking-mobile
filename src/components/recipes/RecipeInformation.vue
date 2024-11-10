@@ -13,7 +13,6 @@
   </div>
   <div v-if="isAuthenticated" class="flex justify-between">
     {{ $t('common.rating') }}
-    {{ recipe.rating}}
     <div class="rating">
       <input type="radio" v-model="rating" :name="`rating-${recipe.id}`" class="rating-hidden" :checked="!recipe.rating"/>
       <input v-for="ratingValue in [1, 2, 3, 4, 5]"
