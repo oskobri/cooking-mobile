@@ -10,6 +10,9 @@ export type Recipe = {
     preparationTime?: number;
     totalTime?: number;
     url?: string;
+    rating?: number;
+    ratingAvg?: number;
+    ratingCount?: number;
 };
 
 export type InputCreateRecipe = {

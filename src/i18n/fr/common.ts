@@ -4,4 +4,5 @@ export default {
     selected: "Sélectionné",
     select: "Sélectionner",
     minute: "minute | 1 minute | {count} minutes",
+    rating: "Note",
 }
