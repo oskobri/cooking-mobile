@@ -12,7 +12,8 @@
     <div class="collapse-content flex flex-wrap gap-4">
       <RecipeCard v-for="recipe in groceryList.recipes"
                   :key="groceryList.id"
-                  :recipe="recipe"/>
+                  :recipe
+                  :grocery-list-id="groceryList.id"/>
     </div>
 
     <div class="absolute z-50 flex flex-col items-start top-9 right-3 border border-gray-300 bg-base-100 text-gray-600 opacity-95 rounded-lg"

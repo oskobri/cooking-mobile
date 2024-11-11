@@ -58,11 +58,21 @@ async function deleteGroceryList(id: number): Promise<number> {
     }
 }
 
+
+async function updateGroceryListRecipe(id: number, recipeId: number, done: boolean) {
+    try {
+        await http.put(`${apiUrl}/${id}/recipes/${recipeId}`, {done});
+    } catch (error) {
+        throw new Error(`Error when updating recipe ${recipeId} for grocery list ${id}: ${error}`);
+    }
+}
+
 export default {
     getGroceryLists,
     getGroceryList,
     getLastGroceryList,
     createGroceryList,
     updateGroceryList,
-    deleteGroceryList
+    deleteGroceryList,
+    updateGroceryListRecipe
 };

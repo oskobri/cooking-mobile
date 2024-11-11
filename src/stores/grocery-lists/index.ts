@@ -53,11 +53,16 @@ export const useGroceryListsStore = defineStore("groceryListsStore", () => {
         }
     }
 
+    async function updateGroceryListRecipe(id: number, recipeId: number, done: boolean) {
+        await API.groceryList.updateGroceryListRecipe(id, recipeId, done);
+    }
+
     return {
         currentPage,
         groceryLists,
         getGroceryLists,
         updateGroceryList,
-        deleteGroceryList
+        deleteGroceryList,
+        updateGroceryListRecipe
     }
 });

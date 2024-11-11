@@ -14,6 +14,9 @@ export type Recipe = {
     rating?: number;
     ratingAvg?: number;
     ratingCount?: number;
+
+    // Context GroceryList
+    groceryListDone?: boolean;
 };
 
 export type InputCreateRecipe = {

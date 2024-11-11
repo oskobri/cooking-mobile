@@ -1,7 +1,7 @@
 <template>
   <div class="bg-base-100 shadow-xl" :class="mode === 'side' ? 'flex flex-row rounded-lg' : 'card card-compact'">
     <router-link v-if="recipe" :to="{ name: 'show-recipe', params: { id: recipe.id } }" :class="mode === 'side' ? 'w-1/3' : ''">
-      <RecipePicture :recipe="recipe" :show-favorite="mode !== 'side'"/>
+      <RecipePicture :recipe="recipe" :groceryListId :show-favorite="mode !== 'side'"/>
     </router-link>
     <div class="card-body" :class="mode === 'side' ? 'p-2 w-2/3 justify-center' : ''">
       <h2 class="card-title" :class="mode === 'side' ? 'text-sm ' : ''">{{ recipe.name }}</h2>
@@ -34,6 +34,7 @@ const props = withDefaults(defineProps<{
   recipe: Recipe,
   showActions?: boolean,
   mode?: string
+  groceryListId?: number // From GroceryListCard.vue
 }>(), {
   showActions: false,
   mode: 'compact',

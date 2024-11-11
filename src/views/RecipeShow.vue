@@ -16,7 +16,6 @@ const props = defineProps<{
 const recipeStore = useRecipeStore();
 
 onBeforeMount(async () => {
-  console.log('toto');
   recipeStore.clearRecipe();
   if (props.id) {
     await recipeStore.getRecipe(parseInt(props.id));
