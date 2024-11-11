@@ -10,6 +10,7 @@ export type Recipe = {
     preparationTime?: number;
     totalTime?: number;
     url?: string;
+    favorite?: boolean;
     rating?: number;
     ratingAvg?: number;
     ratingCount?: number;

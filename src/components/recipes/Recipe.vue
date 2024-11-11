@@ -1,10 +1,6 @@
 <template>
   <div v-if="recipeStore.recipe">
-    <figure>
-      <img
-          :src="recipeStore.recipe.picture"
-          :alt="recipeStore.recipe.name"/>
-    </figure>
+    <RecipePicture :recipe="recipeStore.recipe" :show-favorite="true"/>
     <a v-if="recipeStore.recipe.url" :href="recipeStore.recipe.url" target="_blank" rel="noopener noreferrer">
       <h1 class="text-2xl mb-4">{{ recipeStore.recipe.name }}</h1>
     </a>
@@ -68,6 +64,7 @@ import units from "@/enums/units";
 import {useIngredientsStore} from "@/stores/ingredients";
 import QuantitySelector from "@/components/input/QuantitySelector.vue";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
+import RecipePicture from "@/components/recipes/RecipePicture.vue";
 
 const recipeStore = useRecipeStore();
 const ingredientsStore = useIngredientsStore();

@@ -65,7 +65,6 @@ async function addIngredient(recipe_id: number, ingredient: number|string, quant
     }
 }
 
-
 async function rateRecipe(recipe_id: number, rating: number) {
     try {
         await http.post(`api/recipes/${recipe_id}/ratings`, {rating});
@@ -74,10 +73,19 @@ async function rateRecipe(recipe_id: number, rating: number) {
     }
 }
 
+async function favoriteRecipe(recipe_id: number) {
+    try {
+        await http.post(`api/recipes/${recipe_id}/favorites`);
+    } catch(error) {
+        throw new Error(`Error when favorites recipe: ${error}`);
+    }
+}
+
 export default {
     getRecipes,
     getRecipe,
     createRecipe,
     addIngredient,
-    rateRecipe
+    rateRecipe,
+    favoriteRecipe
 };

@@ -29,9 +29,12 @@ export const useRecipeStore = defineStore("recipeStore", () => {
         initIngredients();
     }
 
-
     async function rateRecipe(recipe_id: number, rating: number) {
-        const response = await API.recipe.rateRecipe(recipe_id, rating);
+        await API.recipe.rateRecipe(recipe_id, rating);
+    }
+
+    async function favoriteRecipe(recipe_id: number) {
+        await API.recipe.favoriteRecipe(recipe_id);
     }
 
     async function addIngredientToRecipe(
@@ -76,6 +79,7 @@ export const useRecipeStore = defineStore("recipeStore", () => {
         clearRecipe,
         getRecipe,
         addIngredientToRecipe,
-        rateRecipe
+        rateRecipe,
+        favoriteRecipe,
     };
 });
