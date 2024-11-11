@@ -5,7 +5,7 @@ import type {Ingredient} from "@/services/ingredients/types.d";
 
 const apiUrl = 'api/recipes';
 
-async function getRecipes(page: number, sort: string | null = null, direction: string | null = null): Promise<APIResponsePaginated<Recipe[]>> {
+async function getRecipes(page: number, sort: string | null = null, sortDirection: string | null = null, search: string | null = null): Promise<APIResponsePaginated<Recipe[]>> {
     try {
         // 2 different routes for guest and logged-in users
         const suffixGuest = localStorage.getItem('token') === null ? '-guest' : '';
@@ -14,7 +14,8 @@ async function getRecipes(page: number, sort: string | null = null, direction: s
             params: {
                 page,
                 sort,
-                sort_direction: direction
+                sort_direction: sortDirection,
+                search
             }
         });
         return response.data;
