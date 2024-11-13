@@ -33,7 +33,7 @@ const recipesStore = useRecipesStore();
 
 const showActions = ref(false);
 
-const search = useDebouncedRef('');
+const search = useDebouncedRef(recipesStore.search);
 
 watch(search, (newSearch) => {
   recipesStore.getRecipes(1, null, null, newSearch);

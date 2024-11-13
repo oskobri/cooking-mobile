@@ -101,6 +101,7 @@ export const useRecipesStore = defineStore("recipesStore", () => {
     }
 
     return {
+        search,
         recipe,
         recipes,
         currentPage,
