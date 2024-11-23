@@ -1,9 +1,9 @@
 <template>
   <div class="bg-base-100 shadow-xl" :class="mode === 'side' ? 'flex flex-row rounded-lg' : 'card card-compact'">
     <router-link v-if="recipe" :to="{ name: 'show-recipe', params: { id: recipe.id } }" :class="mode === 'side' ? 'w-1/3' : ''">
-      <RecipePicture :recipe="recipe" :groceryListId :show-favorite="mode !== 'side'"/>
+      <RecipePicture :recipe="recipe" :groceryListId :show-favorite="mode !== 'side'" portrait/>
     </router-link>
-    <div class="card-body" :class="mode === 'side' ? 'p-2 w-2/3 justify-center' : ''">
+    <div class="card-body hidden" :class="mode === 'side' ? 'p-2 w-2/3 justify-center' : ''">
       <h2 class="card-title" :class="mode === 'side' ? 'text-sm ' : ''">{{ recipe.name }}</h2>
       <template v-if="mode === 'compact'">
         <RecipeInformation :recipe="recipe"/>

@@ -7,7 +7,7 @@
 
 <script lang="ts" setup>
 withDefaults(defineProps<{
-  fill: string
+  fill?: string
 }>(), {
   fill: 'white',
 });

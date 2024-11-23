@@ -12,7 +12,7 @@ export type Recipe = {
     url?: string;
     favorite?: boolean;
     rating?: number;
-    ratingAvg?: number;
+    avgRating?: number;
     ratingCount?: number;
 
     // Context GroceryList
