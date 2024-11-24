@@ -1,4 +1,6 @@
 import './assets/main.css'
+import './assets/vant.css'
+import 'vant/lib/index.css';
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
@@ -26,6 +28,13 @@ const i18n = createI18n({
     }
 })
 const app = createApp(App)
+
+/**
+ * Vant UI
+*/
+import { ActionSheet, FloatingPanel } from 'vant';
+app.use(ActionSheet);
+app.use(FloatingPanel);
 
 app.use(createPinia())
 app.use(router)

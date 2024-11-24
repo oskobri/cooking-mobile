@@ -8,6 +8,8 @@
                   :recipe="recipe"
                   :show-actions="true"/>
     </div>
+
+    <RecipeDrawer/>
   </div>
 </template>
 
@@ -16,6 +18,7 @@ import {onMounted, onUnmounted, ref} from "vue";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
 import {useRecipesStore} from "@/stores/recipes";
 import SearchBar from "@/components/recipes/SearchBar.vue";
+import RecipeDrawer from "@/components/recipes/RecipeDrawer.vue";
 
 const recipesStore = useRecipesStore();
 

@@ -1,85 +1,81 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
-import type {
-    Recipe,
-} from "@/services/recipes/types.d";
+import type {Recipe} from "@/services/recipes/types.d";
 import {API} from "@/services";
 import type {Ingredient} from "@/services/ingredients/types.d";
+import type {APIResponse} from "@/services/types";
 
 export const useRecipeStore = defineStore("recipeStore", () => {
-    const recipe = ref<Recipe|null>();
+    const defaultServingCount = 2;
+    const recipe = ref<Recipe | null>(null);
     const ingredients = ref<Ingredient[]>([]);
-    const servingCount = ref<number>(2);
+    const servingCount = ref<number>(defaultServingCount);
+    const isOpenedDrawer = ref<boolean>(false);
 
-    function initRecipe(data: Recipe) {
-        recipe.value = data;
+    /**
+     * Initialize the recipe with data from the recipes list without the ingredients to render drawer faster
+     */
+    const initRecipe = (newRecipe: Recipe, openDrawer: boolean = false): void => {
+        resetStore();
+        recipe.value = newRecipe;
+        isOpenedDrawer.value = openDrawer;
     }
 
-    function clearRecipe() {
-        recipe.value = null;
-    }
-
-    function addNewIngredient(data: Ingredient) {
-        recipe.value?.ingredients.push(data);
-    }
-
-    async function getRecipe(id: number) {
-        const response = await API.recipe.getRecipe(id);
-        initRecipe(response.data);
+    const getRecipe = async (recipeId: number): Promise<void> => {
+        const response: APIResponse<Recipe> = await API.recipe.getRecipe(recipeId);
+        recipe.value = response.data;
         initIngredients();
     }
 
-    async function rateRecipe(recipe_id: number, rating: number) {
-        await API.recipe.rateRecipe(recipe_id, rating);
+    const rateRecipe = async (recipeId: number, rating: number): Promise<void> => {
+        await API.recipe.rateRecipe(recipeId, rating);
     }
 
-    async function favoriteRecipe(recipe_id: number) {
-        await API.recipe.favoriteRecipe(recipe_id);
+    const favoriteRecipe = async (recipeId: number) => {
+        await API.recipe.favoriteRecipe(recipeId);
     }
 
-    async function addIngredientToRecipe(
-        recipe_id: number,
-        ingredient: number | string,
-        quantity: number,
-        unit: string,
-    ) {
-        const response = await API.recipe.addIngredient(recipe_id, ingredient, quantity, unit);
-
-        addNewIngredient(<Ingredient> {
-            id: response.data.id,
-            name: response.data.name,
-            quantity,
-            unit
-        });
-    }
-
-
-    function setServingCount(count: number) {
+    const setServingCount = (count: number): void => {
         servingCount.value = count;
         initIngredients();
     }
 
-    function initIngredients() {
+    const initIngredients = (): void => {
         ingredients.value = [];
-        recipe.value?.ingredients.forEach((ingredient: Ingredient) => {
-            const quantity: number = (ingredient.quantity || 0) * servingCount.value;
 
-            ingredients.value.push({
-                ...ingredient,
-                quantity,
-            });
-        });
+        if (!recipe.value) return;
+
+        ingredients.value = recipe.value.ingredients.map((ingredient: Ingredient) => ({
+            ...ingredient,
+            quantity: (ingredient.quantity || 0) * servingCount.value,
+        }));
     }
 
+    const resetStore = (): void => {
+        recipe.value = null;
+        ingredients.value = [];
+        servingCount.value = defaultServingCount;
+        isOpenedDrawer.value = false;
+    };
+
     return {
+        // State
         recipe,
         ingredients,
         servingCount,
-        setServingCount,
-        clearRecipe,
+        isOpenedDrawer,
+
+        // Recipe management
+        initRecipe,
         getRecipe,
-        addIngredientToRecipe,
         rateRecipe,
         favoriteRecipe,
+
+        // Ingredient management
+        setServingCount,
+        initIngredients,
+
+        // Utilities
+        resetStore,
     };
 });

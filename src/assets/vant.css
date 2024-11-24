@@ -1,0 +1,7 @@
+:root:root {
+    --van-action-sheet-max-height: 95%;
+}
+
+.van-floating-panel__header {
+    background-color: yellow;
+}

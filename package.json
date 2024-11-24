@@ -12,7 +12,7 @@
     "sync": "npm run build && npx cap sync",
     "ios": "npm run build && npx cap sync && npx cap open ios",
     "dev-copy": "NODE_ENV=development npx cap copy",
-    "dev-ios": "NODE_ENV=development npm run build && npx cap sync && npx cap open ios"
+    "dev-ios": "NODE_ENV=development npm run build && NODE_ENV=development npx cap sync && NODE_ENV=development npx cap open ios"
   },
   "dependencies": {
     "@capacitor/android": "^6.1.2",
@@ -25,6 +25,7 @@
     "@vueuse/core": "^11.1.0",
     "axios": "^1.7.7",
     "pinia": "^2.1.7",
+    "vant": "^4.9.9",
     "vue": "^3.4.29",
     "vue-i18n": "^9.14.0",
     "vue-router": "^4.3.3"

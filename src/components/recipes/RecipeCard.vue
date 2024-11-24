@@ -1,8 +1,9 @@
 <template>
   <div class="bg-base-100 shadow-xl" :class="mode === 'side' ? 'flex flex-row rounded-lg' : 'card card-compact'">
-    <router-link v-if="recipe" :to="{ name: 'show-recipe', params: { id: recipe.id } }" :class="mode === 'side' ? 'w-1/3' : ''">
-      <RecipePicture :recipe="recipe" :groceryListId :show-favorite="mode !== 'side'" portrait/>
-    </router-link>
+
+    <div v-if="recipe" :class="mode === 'side' ? 'w-1/3' : ''">
+      <RecipePicture @click="showRecipe" :recipe="recipe" :groceryListId :show-favorite="mode !== 'side'" portrait/>
+    </div>
     <div class="card-body hidden" :class="mode === 'side' ? 'p-2 w-2/3 justify-center' : ''">
       <h2 class="card-title" :class="mode === 'side' ? 'text-sm ' : ''">{{ recipe.name }}</h2>
       <template v-if="mode === 'compact'">
@@ -27,8 +28,10 @@ import {useGroceryListStore} from "@/stores/grocery-list";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 import type {Recipe} from "@/services/recipes/types.d";
 import RecipePicture from "@/components/recipes/RecipePicture.vue";
+import {useRecipeStore} from "@/stores/recipe";
 
 const groceryListStore = useGroceryListStore();
+const recipeStore = useRecipeStore();
 
 const props = withDefaults(defineProps<{
   recipe: Recipe,
@@ -48,6 +51,11 @@ function selectRecipe() {
 
 function unselectRecipe() {
   groceryListStore.unselectRecipe(props.recipe.id)
+}
+
+function showRecipe() {
+  recipeStore.initRecipe(props.recipe, true);
+  recipeStore.getRecipe(props.recipe.id)
 }
 
 </script>

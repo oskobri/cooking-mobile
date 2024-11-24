@@ -1,6 +1,5 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import RecipeShow from "@/views/RecipeShow.vue";
 import RecipeCreate from "@/views/RecipeCreate.vue";
 import GroceryListIndex from "@/views/GroceryListIndex.vue";
 import GroceryListShow from '@/views/GroceryListShow.vue';
@@ -24,12 +23,6 @@ const router = createRouter({
             path: '/recipes/create',
             name: 'create-recipe',
             component: RecipeCreate
-        },
-        {
-            path: '/recipes/:id',
-            name: 'show-recipe',
-            props: true,
-            component: RecipeShow
         },
         {
             path: '/grocery-lists',

@@ -4,12 +4,15 @@
                      :key="groceryList.id"
                      :grocery-list="groceryList"/>
   </div>
+  <RecipeDrawer :duration="0.2"/>
+
 </template>
 
 <script setup lang="ts">
 import {onMounted, onUnmounted, ref} from "vue";
 import {useGroceryListsStore} from "@/stores/grocery-lists";
 import GroceryListCard from "@/components/grocery-lists/GroceryListCard.vue";
+import RecipeDrawer from "@/components/recipes/RecipeDrawer.vue";
 
 const groceryListsStore = useGroceryListsStore();
 
