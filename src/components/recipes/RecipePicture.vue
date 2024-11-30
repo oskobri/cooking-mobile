@@ -22,13 +22,13 @@
       <div class="flex justify-between items-end text-sm text-gray-400">
         <div class="flex gap-2 divide-x divide-gray-400">
           <span v-if="recipe.preparationTime" class="flex items-center gap-1">
-            <IconKnife/> {{ recipe.preparationTime }} min
+            <IconKnife/> {{ $tc('common.minute', { count: recipe.preparationTime }) }}
           </span>
           <span v-if="recipe.totalTime" class="flex items-center gap-1 pl-2">
-            <IconTime/> {{ recipe.totalTime }} min
+            <IconTime/> {{ $tc('common.minute', { count: recipe.totalTime }) }}
           </span>
           <span v-if="recipe.kcal" class="flex items-center gap-1 pl-2">
-            <IconFire/> {{ recipe.kcal }} kcal
+            <IconFire/> {{ recipe.kcal }} {{ $t('recipes.kcal') }}
           </span>
         </div>
         <div>

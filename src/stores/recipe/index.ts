@@ -29,6 +29,10 @@ export const useRecipeStore = defineStore("recipeStore", () => {
 
     const rateRecipe = async (recipeId: number, rating: number): Promise<void> => {
         await API.recipe.rateRecipe(recipeId, rating);
+
+        if (recipe.value?.id === recipeId) {
+            recipe.value.rating = rating;
+        }
     }
 
     const favoriteRecipe = async (recipeId: number) => {

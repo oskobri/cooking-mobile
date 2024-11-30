@@ -3,6 +3,6 @@ export default {
     add: "Ajouter",
     selected: "Sélectionné",
     select: "Sélectionner",
-    minute: "minute | 1 minute | {count} minutes",
+    minute: "min | 1 min | {count} min",
     rating: "Note",
 }

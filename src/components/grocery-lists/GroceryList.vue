@@ -35,7 +35,7 @@
 import {useGroceryListStore} from "@/stores/grocery-list";
 import {onBeforeMount} from "vue";
 import RecipeCard from "@/components/recipes/RecipeCard.vue";
-import QuantitySelector from "@/components/input/QuantitySelector.vue";
+import QuantitySelector from "@/components/input/CounterInput.vue";
 
 const groceryListStore = useGroceryListStore();
 

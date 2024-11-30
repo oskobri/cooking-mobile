@@ -1,47 +1,41 @@
 <template>
-  <div class="flex justify-between">
-    {{ $t('recipes.preparation_time') }}
-    <span class="font-bold">{{ $tc('common.minute', recipe.preparationTime, {count: recipe.preparationTime}) }}</span>
-  </div>
-  <div class="flex justify-between">
-    {{ $t('recipes.total_time') }}
-    <span class="font-bold">{{ $tc('common.minute', recipe.totalTime, {count: recipe.totalTime}) }}</span>
-  </div>
-  <div class="flex justify-between">
-    {{ $t('recipes.per_serving') }}
-    <span class="font-bold">{{ recipe.kcal }} {{ $t('recipes.kcal') }}</span>
-  </div>
-  <div v-if="isAuthenticated" class="flex justify-between">
-    {{ $t('common.rating') }}
-    <div class="rating">
-      <input type="radio" v-model="rating" :name="`rating-${recipe.id}`" class="rating-hidden" :checked="!recipe.rating"/>
-      <input v-for="ratingValue in [1, 2, 3, 4, 5]"
-             type="radio"
-             v-model="rating"
-             :value="ratingValue"
-             :name="`rating-${recipe.id}`"
-             class="mask mask-star bg-yellow-500"
-             :checked="recipe.rating == ratingValue"/>
+  <div v-if="recipe" class="flex flex-col gap-4 text-sm">
+
+    <div class="flex justify-between items-center px-4">
+      <div class="flex flex-col items-center justify-center">
+        <IconKnife :width="24" :height="24"/>
+        <span class="font-bold">{{
+            $tc('common.minute', recipe.preparationTime, {count: recipe.preparationTime})
+          }}</span>
+      </div>
+      <div class="flex flex-col items-center justify-center">
+        <IconTime :width="24" :height="24"/>
+        <span class="font-bold">{{ $tc('common.minute', recipe.totalTime, {count: recipe.totalTime}) }}</span>
+      </div>
+      <div class="flex flex-col items-center justify-center" v-if="recipe.kcal">
+        <IconFire :width="24" :height="24"/>
+        <span class="font-bold">{{ recipe.kcal }} {{ $t('recipes.kcal') }}</span>
+      </div>
+      <div v-if="recipe.avgRating" class="flex flex-col items-center justify-center">
+        <IconStar :width="24" :height="24"/>
+        <span class="font-bold">{{ recipe.avgRating }}</span>
+      </div>
     </div>
+
+    <h1 class="text-3xl font-bold text-center">{{ recipe.name }}</h1>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useRecipeStore } from "@/stores/recipe";
-import {ref, watch} from "vue";
-import { useAuth } from "@/composables/useAuth";
+import {storeToRefs} from "pinia";
 
-const props = defineProps(['recipe']);
+import {useRecipeStore} from "@/stores/recipe";
+import IconKnife from "@/components/icons/IconKnife.vue";
+import IconFire from "@/components/icons/IconFire.vue";
+import IconTime from "@/components/icons/IconTime.vue";
+import IconStar from "@/components/icons/IconStar.vue";
 
-const { isAuthenticated } = useAuth();
-const recipeStore  = useRecipeStore();
-
-const rating = ref(null);
-
-watch(rating, (newRating) => {
-  if(newRating) {
-    recipeStore.rateRecipe(props.recipe.id, newRating);
-  }
-});
+const recipeStore = useRecipeStore();
+const {recipe} = storeToRefs(recipeStore);
 
 </script>

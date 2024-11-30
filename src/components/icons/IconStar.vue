@@ -9,6 +9,6 @@
 withDefaults(defineProps<{
   fill?: string
 }>(), {
-  fill: 'orange',
+  fill: '#ffd21e',
 });
 </script>

@@ -19,8 +19,10 @@ import RecipeCard from "@/components/recipes/RecipeCard.vue";
 import {useRecipesStore} from "@/stores/recipes";
 import SearchBar from "@/components/recipes/SearchBar.vue";
 import RecipeDrawer from "@/components/recipes/RecipeDrawer.vue";
+import {useRecipeStore} from "@/stores/recipe";
 
 const recipesStore = useRecipesStore();
+const recipeStore = useRecipeStore();
 
 const scrollComponent = ref<HTMLElement|null>(null);
 const waitForRecipes = ref(false);
