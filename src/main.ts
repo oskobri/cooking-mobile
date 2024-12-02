@@ -32,15 +32,18 @@ const app = createApp(App)
 /**
  * Vant UI
 */
-import { ActionSheet, FloatingPanel, Stepper, Rate } from 'vant';
-app.use(ActionSheet);
-app.use(FloatingPanel);
-app.use(Stepper);
-app.use(Rate);
+import { ActionSheet, FloatingPanel, Stepper, Rate, Icon, Dialog } from 'vant';
+app
+    .use(ActionSheet)
+    .use(FloatingPanel)
+    .use(Stepper)
+    .use(Rate)
+    .use(Icon)
+    .use(Dialog)
 
-app.use(createPinia())
-app.use(router)
-app.use(i18n)
+    .use(createPinia())
+    .use(router)
+    .use(i18n);
 
 
 

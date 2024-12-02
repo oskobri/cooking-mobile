@@ -2,19 +2,13 @@
   <VanActionSheet v-model:show="showActionSheet" v-if="recipe" :title="recipe.name" class="h-full">
     <template v-if="recipe">
       <figure><img :src="recipe.picture" :alt="recipe.name"/></figure>
-      <div class="flex flex-col gap-8 m-6">
+      <div class="flex flex-col gap-8 m-6 pb-28">
         <RecipeInformation/>
-        <div class="flex flex-col justify-center items-center">
-          <VanRate v-if="isAuthenticated"
-                   v-model="rating"
-                   color="#ffd21e"
-                   void-icon="star"
-                   void-color="#eee"/>
-          <span class="text-sm text-gray-400">Ma note</span>
-        </div>
+        <RecipeRating v-if="isAuthenticated"/>
         <RecipeIngredients/>
         <RecipeInstructions/>
       </div>
+      <AddButtonToGroceryList/>
     </template>
   </VanActionSheet>
 </template>
@@ -29,6 +23,8 @@ import {useAuth} from "@/composables/useAuth";
 import RecipeInformation from "@/components/recipes/RecipeInformation.vue";
 import RecipeIngredients from "@/components/recipes/RecipeIngredients.vue";
 import RecipeInstructions from "@/components/recipes/RecipeInstructions.vue";
+import AddButtonToGroceryList from "@/components/recipes/AddButtonToGroceryList.vue";
+import RecipeRating from "@/components/recipes/RecipeRating.vue";
 
 const {isAuthenticated} = useAuth();
 const recipeStore = useRecipeStore();
@@ -37,11 +33,6 @@ const {recipe} = storeToRefs(recipeStore);
 const showActionSheet = computed({
   get: () => recipeStore.isOpenedDrawer,
   set: (value: boolean) => recipeStore.isOpenedDrawer = value
-});
-
-const rating = computed({
-  get: () => recipeStore.recipe?.rating ?? 0,
-  set: (value: number) => recipeStore.recipe?.id && recipeStore.rateRecipe(recipeStore.recipe.id, value)
 });
 
 </script>

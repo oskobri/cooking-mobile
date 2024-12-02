@@ -46,11 +46,11 @@ const props = withDefaults(defineProps<{
 const selected = computed(() => groceryListStore.recipes.some(recipe => recipe.id === props.recipe.id));
 
 function selectRecipe() {
-  groceryListStore.selectRecipe(props.recipe)
+  groceryListStore.addRecipeToGroceryList(props.recipe)
 }
 
 function unselectRecipe() {
-  groceryListStore.unselectRecipe(props.recipe.id)
+  groceryListStore.removeRecipeFromGroceryList(props.recipe.id)
 }
 
 function showRecipe() {

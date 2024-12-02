@@ -1,5 +1,13 @@
-
 @import './tailwind.css';
 
 
+@layer base {
+    * {
+        @apply font-sans;
+    }
+    h1 {
+        @apply text-3xl;
+        @apply font-bold;
+    }
+}
 

@@ -6,6 +6,7 @@ export type GroceryList = {
     servingCount: Number;
     updatedAt: string;
     recipes: Recipe[];
+    recipeUpdatedAt: Date | null;
 };
 
 export type InputCreateGroceryList = {
