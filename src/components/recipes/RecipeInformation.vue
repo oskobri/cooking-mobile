@@ -2,17 +2,17 @@
   <div v-if="recipe" class="flex flex-col gap-4 text-sm">
 
     <div class="flex justify-between items-center px-4">
-      <div class="flex flex-col items-center justify-center">
+      <div v-if="recipe.preparationTime" class="flex flex-col items-center justify-center">
         <IconKnife :width="24" :height="24"/>
         <span class="font-bold">{{
             $tc('common.minute', recipe.preparationTime, {count: recipe.preparationTime})
           }}</span>
       </div>
-      <div class="flex flex-col items-center justify-center">
+      <div v-if="recipe.totalTime" class="flex flex-col items-center justify-center">
         <IconTime :width="24" :height="24"/>
         <span class="font-bold">{{ $tc('common.minute', recipe.totalTime, {count: recipe.totalTime}) }}</span>
       </div>
-      <div class="flex flex-col items-center justify-center" v-if="recipe.kcal">
+      <div v-if="recipe.kcal" class="flex flex-col items-center justify-center">
         <IconFire :width="24" :height="24"/>
         <span class="font-bold">{{ recipe.kcal }} {{ $t('recipes.kcal') }}</span>
       </div>

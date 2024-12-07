@@ -8,7 +8,7 @@
                   mode="side"/>
     </div>
     <div class="flex justify-end mb-2">
-      <QuantitySelector :initial-quantity="groceryListStore.servingCount" @update="groceryListStore.setServingCount"/>
+      <QuantitySelector v-model="groceryListStore.servingCount" @update="groceryListStore.setServingCount"/>
     </div>
   <div class="flex flex-col gap-2">
     <div v-for="(ingredient, index) in groceryListStore.ingredients" :key="index">
